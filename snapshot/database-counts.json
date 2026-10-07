@@ -1,0 +1,394 @@
+{
+  "cutover_backup_20260923.audit_id_map": {
+    "rows": 628,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_audit_events": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_classification_history": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_data_corrections": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_evidence_assets": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_external_effects": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_logistics_analyses": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_manual_interventions": {
+    "rows": 15,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_notification_deliveries": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_notification_outbox": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_oms_analyses": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_operator_commands": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_ordinary_work_order_instances": {
+    "rows": 21,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_return_refunds": {
+    "rows": 235,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_tms_work_orders": {
+    "rows": 2,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_verification_locations": {
+    "rows": 133,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_work_orders": {
+    "rows": 254,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_workflow_events": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.before_workflow_runs": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.event_id_map": {
+    "rows": 1,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_audit_events": {
+    "rows": 628,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_classification_history": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_data_corrections": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_evidence_assets": {
+    "rows": 866,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_external_effects": {
+    "rows": 468,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_logistics_analyses": {
+    "rows": 191,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_manual_interventions": {
+    "rows": 61,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_notification_deliveries": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_notification_outbox": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_oms_analyses": {
+    "rows": 185,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_operator_commands": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_ordinary_work_order_instances": {
+    "rows": 122,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_return_refunds": {
+    "rows": 271,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_tms_work_orders": {
+    "rows": 158,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_verification_locations": {
+    "rows": 857,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_work_orders": {
+    "rows": 383,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_workflow_events": {
+    "rows": 62879,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.inserted_workflow_runs": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_backup_20260923.merge_report": {
+    "rows": 1,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.audit_events": {
+    "rows": 1977,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.classification_history": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.data_corrections": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.evidence_assets": {
+    "rows": 5003,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.external_effects": {
+    "rows": 1762,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.logistics_analyses": {
+    "rows": 1080,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.manual_interventions": {
+    "rows": 437,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.notification_deliveries": {
+    "rows": 16,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.notification_outbox": {
+    "rows": 16,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.oms_analyses": {
+    "rows": 950,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.operator_commands": {
+    "rows": 3,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.ordinary_work_order_instances": {
+    "rows": 608,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.return_refunds": {
+    "rows": 1017,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.tms_work_orders": {
+    "rows": 671,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.verification_locations": {
+    "rows": 6429,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.work_orders": {
+    "rows": 1595,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.workflow_events": {
+    "rows": 116661,
+    "excludedImageRows": 0
+  },
+  "cutover_stage_20260923.workflow_runs": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "public.audit_events": {
+    "rows": 859849,
+    "excludedImageRows": 0
+  },
+  "public.browser_slots": {
+    "rows": 1323,
+    "excludedImageRows": 0
+  },
+  "public.chat_analysis_jobs": {
+    "rows": 467,
+    "excludedImageRows": 0
+  },
+  "public.chat_analysis_settings": {
+    "rows": 1,
+    "excludedImageRows": 0
+  },
+  "public.chat_attachments": {
+    "rows": 0,
+    "excludedImageRows": 707
+  },
+  "public.chat_cases": {
+    "rows": 383,
+    "excludedImageRows": 0
+  },
+  "public.chat_feedback_effects": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "public.chat_snapshots": {
+    "rows": 465,
+    "excludedImageRows": 0
+  },
+  "public.classification_history": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "public.cross_shop_order_conflicts": {
+    "rows": 5,
+    "excludedImageRows": 0
+  },
+  "public.data_corrections": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "public.dingtalk_daily_summaries": {
+    "rows": 52,
+    "excludedImageRows": 0
+  },
+  "public.evidence_assets": {
+    "rows": 42800,
+    "excludedImageRows": 0
+  },
+  "public.external_effects": {
+    "rows": 43169,
+    "excludedImageRows": 0
+  },
+  "public.logistics_analyses": {
+    "rows": 20812,
+    "excludedImageRows": 0
+  },
+  "public.manual_interventions": {
+    "rows": 8405,
+    "excludedImageRows": 0
+  },
+  "public.migration_runs": {
+    "rows": 1,
+    "excludedImageRows": 0
+  },
+  "public.notification_deliveries": {
+    "rows": 799,
+    "excludedImageRows": 0
+  },
+  "public.notification_outbox": {
+    "rows": 814,
+    "excludedImageRows": 0
+  },
+  "public.oms_analyses": {
+    "rows": 17654,
+    "excludedImageRows": 0
+  },
+  "public.operator_commands": {
+    "rows": 300,
+    "excludedImageRows": 0
+  },
+  "public.ordinary_work_order_instances": {
+    "rows": 12453,
+    "excludedImageRows": 0
+  },
+  "public.pdd_shop_runtime_bindings": {
+    "rows": 20,
+    "excludedImageRows": 0
+  },
+  "public.return_refunds": {
+    "rows": 28677,
+    "excludedImageRows": 0
+  },
+  "public.rule_versions": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "public.scenario_definitions": {
+    "rows": 16,
+    "excludedImageRows": 0
+  },
+  "public.schema_migrations": {
+    "rows": 305,
+    "excludedImageRows": 0
+  },
+  "public.shop_deletion_requests": {
+    "rows": 0,
+    "excludedImageRows": 0
+  },
+  "public.shop_identity_bindings": {
+    "rows": 20,
+    "excludedImageRows": 0
+  },
+  "public.shop_runtime_state": {
+    "rows": 21,
+    "excludedImageRows": 0
+  },
+  "public.shop_schedule_state": {
+    "rows": 22,
+    "excludedImageRows": 0
+  },
+  "public.shops": {
+    "rows": 22,
+    "excludedImageRows": 0
+  },
+  "public.sync_cursors": {
+    "rows": 24,
+    "excludedImageRows": 0
+  },
+  "public.system_settings": {
+    "rows": 8,
+    "excludedImageRows": 0
+  },
+  "public.tms_work_orders": {
+    "rows": 13589,
+    "excludedImageRows": 0
+  },
+  "public.verification_locations": {
+    "rows": 69196,
+    "excludedImageRows": 0
+  },
+  "public.work_orders": {
+    "rows": 40735,
+    "excludedImageRows": 0
+  },
+  "public.worker_heartbeats": {
+    "rows": 450,
+    "excludedImageRows": 0
+  },
+  "public.workflow_checkpoints": {
+    "rows": 20,
+    "excludedImageRows": 0
+  },
+  "public.workflow_events": {
+    "rows": 3872088,
+    "excludedImageRows": 0
+  },
+  "public.workflow_runs": {
+    "rows": 9,
+    "excludedImageRows": 0
+  }
+}

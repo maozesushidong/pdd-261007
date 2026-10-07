@@ -1,0 +1,56 @@
+[
+  {
+    "name": "PDD Local Analysis Sync",
+    "path": "\\",
+    "file": "PDD_Local_Analysis_Sync.xml",
+    "state": "Ready"
+  },
+  {
+    "name": "PDD Local Daily Summary",
+    "path": "\\",
+    "file": "PDD_Local_Daily_Summary.xml",
+    "state": "Ready"
+  },
+  {
+    "name": "PDD Local Frontend Watchdog",
+    "path": "\\",
+    "file": "PDD_Local_Frontend_Watchdog.xml",
+    "state": "Running"
+  },
+  {
+    "name": "PDD Local HTTPS Certificate",
+    "path": "\\",
+    "file": "PDD_Local_HTTPS_Certificate.xml",
+    "state": "Ready"
+  },
+  {
+    "name": "PDD Local Public Gateway Tunnel",
+    "path": "\\",
+    "file": "PDD_Local_Public_Gateway_Tunnel.xml",
+    "state": "Running"
+  },
+  {
+    "name": "PDD Local Services Start",
+    "path": "\\",
+    "file": "PDD_Local_Services_Start.xml",
+    "state": "Ready"
+  },
+  {
+    "name": "PDD Local TMS Ticket Sync",
+    "path": "\\",
+    "file": "PDD_Local_TMS_Ticket_Sync.xml",
+    "state": "Ready"
+  },
+  {
+    "name": "PDD Local Worker Start",
+    "path": "\\",
+    "file": "PDD_Local_Worker_Start.xml",
+    "state": "Ready"
+  },
+  {
+    "name": "PDD Local Worker Watchdog",
+    "path": "\\",
+    "file": "PDD_Local_Worker_Watchdog.xml",
+    "state": "Running"
+  }
+]

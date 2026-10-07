@@ -62,6 +62,12 @@ if (-not $InstallRoot.Equals('D:\pdd-native',[StringComparison]::OrdinalIgnoreCa
   & $node (Join-Path $InstallRoot 'snapshot-tools\relocate.mjs') $InstallRoot
   if ($LASTEXITCODE -ne 0) { throw 'Relocating configuration paths failed.' }
 }
+$gatewayKey = Join-Path $InstallRoot 'cloud-gateway\id_ed25519'
+if (Test-Path -LiteralPath $gatewayKey) {
+  $currentSid = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
+  & icacls.exe $gatewayKey /inheritance:r /grant:r '*S-1-5-18:(F)' '*S-1-5-32-544:(F)' ('*'+$currentSid+':(F)') | Out-Null
+  if ($LASTEXITCODE -ne 0) { throw 'Restoring SSH private-key file permissions failed.' }
+}
 . (Join-Path $InstallRoot 'load-local-env.ps1')
 & $node (Join-Path $InstallRoot 'snapshot-tools\restore.mjs') $InstallRoot $DatabasePort $StoragePort
 if ($LASTEXITCODE -ne 0) { throw 'Database/object restore failed. See .restore-work logs.' }
