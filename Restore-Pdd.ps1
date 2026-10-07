@@ -5,6 +5,12 @@ param(
   [switch]$VerifyOnly
 )
 $ErrorActionPreference = 'Stop'
+function Get-SnapshotHash([string]$Path) {
+  $algorithm = [Security.Cryptography.SHA256]::Create()
+  $stream = [IO.File]::OpenRead($Path)
+  try { return [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-','').ToLowerInvariant() }
+  finally { $stream.Dispose(); $algorithm.Dispose() }
+}
 $sourceRoot = [IO.Path]::GetFullPath($PSScriptRoot)
 $InstallRoot = [IO.Path]::GetFullPath($InstallRoot)
 $manifestPath = Join-Path $sourceRoot 'snapshot\manifest.json'
@@ -15,7 +21,7 @@ $sourceFiles = Get-Content -LiteralPath (Join-Path $sourceRoot 'snapshot\source-
 foreach ($file in $sourceFiles) {
   $filePath = [IO.Path]::GetFullPath((Join-Path $sourceRoot $file.path))
   if (-not $filePath.StartsWith($sourceRoot+'\',[StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid source file path.' }
-  if ((Get-FileHash -LiteralPath $filePath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $file.sha256) { throw ('Source checksum mismatch: '+$file.path) }
+  if ((Get-SnapshotHash $filePath) -ne $file.sha256) { throw ('Source checksum mismatch: '+$file.path) }
 }
 if (-not $VerifyOnly -and (Test-Path -LiteralPath (Join-Path $InstallRoot 'data\postgres-local'))) {
   throw 'The target already contains a PostgreSQL database. Select a new empty installation directory.'
@@ -30,14 +36,14 @@ foreach ($archive in $manifest.archives) {
     foreach ($part in $archive.parts) {
       $partPath = [IO.Path]::GetFullPath((Join-Path (Join-Path $sourceRoot 'snapshot') $part.file))
       if (-not $partPath.StartsWith((Join-Path $sourceRoot 'snapshot') + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid snapshot part path.' }
-      $actual = (Get-FileHash -LiteralPath $partPath -Algorithm SHA256).Hash.ToLowerInvariant()
+      $actual = Get-SnapshotHash $partPath
       if ($actual -ne $part.sha256) { throw ('Snapshot checksum mismatch: ' + $part.file) }
       $input = [IO.File]::OpenRead($partPath)
       try { $input.CopyTo($output) } finally { $input.Dispose() }
     }
   } finally { $output.Dispose() }
   if ((Get-Item -LiteralPath $destination).Length -ne [int64]$archive.size) { throw ('Archive length mismatch: ' + $archive.name) }
-  if ((Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash.ToLowerInvariant() -ne $archive.sha256) { throw ('Archive checksum mismatch: ' + $archive.name) }
+  if ((Get-SnapshotHash $destination) -ne $archive.sha256) { throw ('Archive checksum mismatch: ' + $archive.name) }
 }
 if ($VerifyOnly) { Write-Host 'All snapshot archive checksums passed.'; return }
 if (-not $InstallRoot.Equals($sourceRoot,[StringComparison]::OrdinalIgnoreCase)) {

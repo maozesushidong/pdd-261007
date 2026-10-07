@@ -6321,8 +6321,8 @@
   },
   {
     "path": "Restore-Pdd.ps1",
-    "size": 5118,
-    "sha256": "f63352eae64143788d2c6cca5c56f61fe087e40cfcbf31297e7e69cd5d00cafd"
+    "size": 5267,
+    "sha256": "5898f17683316f60f7eac5e0ab943dd7f3df8e0610f1f900fe8e33b2a62885b2"
   },
   {
     "path": "RESTORE.cmd",
@@ -6357,7 +6357,7 @@
   {
     "path": "snapshot/manifest.json",
     "size": 29214,
-    "sha256": "770e8f7841cf99a97d7a5314a71320f6a0feefab2f00e8d024ace66f7fd71a31"
+    "sha256": "27965ecedf0a426e4c68bf536c8a397fdf18e459777ddd757a9de290e45bb1fe"
   },
   {
     "path": "snapshot/ownership-and-grants.sql",
