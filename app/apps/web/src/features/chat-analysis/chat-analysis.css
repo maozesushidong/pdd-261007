@@ -1,0 +1,11 @@
+.chat-analysis .view-heading h1{display:flex;align-items:center;gap:8px;font-size:22px}
+.chat-analysis select{padding:9px 14px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#333}
+.chat-mode-note{background:#faf7f5;border:1px solid #ebe4de;border-radius:10px;padding:14px 18px;font-size:13px;color:#62554c;display:flex;justify-content:space-between;gap:15px}
+.chat-result-card,.chat-message-list{background:white;border:1px solid #e9e5e2;border-radius:12px;padding:20px}
+.chat-result-card h2{font-size:17px;margin-top:0}.chat-result-card p{font-size:14px;line-height:1.6}
+.chat-result-card pre{white-space:pre-wrap;font:inherit;font-size:13px;line-height:1.7}
+.chat-issue{color:#9a5626}.chat-message{padding:15px;margin:12px 0;border:1px solid #eee;border-radius:8px}
+.chat-message.cited{border-left:3px solid #a33c36;background:#fdf9f8}
+.chat-message header{display:flex;justify-content:space-between;gap:12px;font-size:13px}.chat-message time,.chat-message small,.chat-message-list h3 small{color:#8a8280;font-size:12px;font-weight:normal}
+.chat-message p{white-space:pre-wrap;line-height:1.65;font-size:14px}.chat-message img{max-width:200px;max-height:180px;object-fit:contain;margin:8px;border:1px solid #eee}.chat-message small{display:block;margin-top:8px}
+.chat-summary-cell{max-width:340px;white-space:normal!important;line-height:1.5}

@@ -1,0 +1,439 @@
+{
+	"apps": {
+		"http": {
+			"servers": {
+				"srv0": {
+					"listen": [
+						":443"
+					],
+					"routes": [
+						{
+							"match": [
+								{
+									"host": [
+										"121.196.220.219"
+									]
+								}
+							],
+							"handle": [
+								{
+									"handler": "subroute",
+									"routes": [
+										{
+											"handle": [
+												{
+													"handler": "headers",
+													"response": {
+														"set": {
+															"Referrer-Policy": [
+																"no-referrer"
+															],
+															"Strict-Transport-Security": [
+																"max-age=31536000"
+															],
+															"X-Content-Type-Options": [
+																"nosniff"
+															],
+															"X-Frame-Options": [
+																"DENY"
+															],
+															"X-Robots-Tag": [
+																"noindex, nofollow, noarchive, nosnippet"
+															]
+														}
+													}
+												},
+												{
+													"encodings": {
+														"gzip": {},
+														"zstd": {}
+													},
+													"handler": "encode",
+													"prefer": [
+														"zstd",
+														"gzip"
+													]
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handler": "rewrite",
+																	"strip_path_prefix": "/public-api"
+																}
+															]
+														},
+														{
+															"handle": [
+																{
+																	"handler": "reverse_proxy",
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:80"
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											],
+											"match": [
+												{
+													"path": [
+														"/public-api/*"
+													]
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handler": "rewrite",
+																	"strip_path_prefix": "/public"
+																}
+															]
+														},
+														{
+															"handle": [
+																{
+																	"handler": "reverse_proxy",
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:80"
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											],
+											"match": [
+												{
+													"path": [
+														"/public/*"
+													]
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handler": "reverse_proxy",
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:80"
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											],
+											"match": [
+												{
+													"path_regexp": {
+														"name": "publicAssets",
+														"pattern": "^/assets/public-[^/]+$"
+													}
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handler": "reverse_proxy",
+																	"headers": {
+																		"request": {
+																			"delete": [
+																				"Origin"
+																			]
+																		}
+																	},
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:4173"
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											],
+											"match": [
+												{
+													"path": [
+														"/api/v1/auth/login",
+														"/api/v1/auth/logout",
+														"/api/v1/auth/me"
+													]
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handle_response": [
+																		{
+																			"match": {
+																				"status_code": [
+																					2
+																				]
+																			},
+																			"routes": [
+																				{
+																					"handle": [
+																						{
+																							"handler": "vars"
+																						}
+																					]
+																				}
+																			]
+																		}
+																	],
+																	"handler": "reverse_proxy",
+																	"headers": {
+																		"request": {
+																			"delete": [
+																				"Origin"
+																			],
+																			"set": {
+																				"X-Forwarded-Method": [
+																					"{http.request.method}"
+																				],
+																				"X-Forwarded-Uri": [
+																					"{http.request.uri}"
+																				]
+																			}
+																		}
+																	},
+																	"rewrite": {
+																		"method": "GET",
+																		"uri": "/api/v1/auth/authorize"
+																	},
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:3000"
+																		}
+																	]
+																},
+																{
+																	"handler": "reverse_proxy",
+																	"headers": {
+																		"request": {
+																			"delete": [
+																				"Origin"
+																			]
+																		}
+																	},
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:4173"
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											],
+											"match": [
+												{
+													"path": [
+														"/api/*",
+														"/remote-desktop",
+														"/remote-desktop/*"
+													]
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handler": "rewrite",
+																	"strip_path_prefix": "/owner"
+																}
+															]
+														},
+														{
+															"handle": [
+																{
+																	"handler": "reverse_proxy",
+																	"headers": {
+																		"request": {
+																			"delete": [
+																				"Origin"
+																			]
+																		}
+																	},
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:4173"
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											],
+											"match": [
+												{
+													"path": [
+														"/owner/*"
+													]
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handler": "static_response",
+																	"headers": {
+																		"Location": [
+																			"302"
+																		]
+																	},
+																	"status_code": 302
+																}
+															],
+															"match": [
+																{
+																	"path": [
+																		"/public/"
+																	]
+																}
+															]
+														}
+													]
+												}
+											],
+											"match": [
+												{
+													"path": [
+														"/"
+													]
+												}
+											]
+										},
+										{
+											"group": "group8",
+											"handle": [
+												{
+													"handler": "subroute",
+													"routes": [
+														{
+															"handle": [
+																{
+																	"handler": "reverse_proxy",
+																	"headers": {
+																		"request": {
+																			"delete": [
+																				"Origin"
+																			]
+																		}
+																	},
+																	"upstreams": [
+																		{
+																			"dial": "127.0.0.1:4173"
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							],
+							"terminal": true
+						}
+					],
+					"tls_connection_policies": [
+						{
+							"match": {
+								"sni": [
+									"",
+									"121.196.220.219"
+								]
+							},
+							"default_sni": "121.196.220.219"
+						},
+						{
+							"default_sni": "121.196.220.219"
+						}
+					],
+					"automatic_https": {
+						"disable_redirects": true
+					}
+				}
+			}
+		},
+		"tls": {
+			"automation": {
+				"policies": [
+					{
+						"subjects": [
+							"121.196.220.219"
+						],
+						"issuers": [
+							{
+								"ca": "https://acme-v02.api.letsencrypt.org/directory",
+								"module": "acme",
+								"profile": "shortlived"
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}

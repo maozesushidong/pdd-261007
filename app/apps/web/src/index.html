@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>电商工单自动化系统</title>
+  <style>
+    :root { font-family: Inter, system-ui, sans-serif; color: #10233f; background: #f5f7fb; }
+    * { box-sizing: border-box; } body { margin: 0; } header { height: 72px; padding: 14px 28px; background: #0b2545; color: white; display: flex; align-items: center; justify-content: space-between; }
+    main { max-width: 1440px; margin: 0 auto; padding: 24px; } .toolbar, .card, .panel { background: white; border: 1px solid #e5eaf2; border-radius: 12px; box-shadow: 0 2px 8px #10233f0d; }
+    .toolbar { padding: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; } select, input, button { border: 1px solid #cdd7e5; border-radius: 7px; padding: 9px 12px; background: white; } button { cursor: pointer; } .primary { color: white; background: #1677ff; border-color: #1677ff; }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(140px, 1fr)); gap: 14px; margin: 18px 0; } .card { padding: 18px; } .card small { color: #70819b; } .metric { font-size: 30px; font-weight: 700; margin-top: 10px; }
+    .layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; } .panel { padding: 18px; overflow: auto; } table { width: 100%; border-collapse: collapse; } th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #edf0f5; white-space: nowrap; } th { color: #66758b; font-size: 13px; } .tag { padding: 4px 8px; border-radius: 20px; background: #eef4ff; color: #245cc7; font-size: 12px; } .danger { color: #cf1322; } .healthy { color: #0a8f55; } .empty { padding: 32px; text-align: center; color: #70819b; }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } .layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header><div><strong>电商工单自动化系统</strong><div style="font-size:12px;opacity:.75">PDD · OMS · TMS 多店铺运营看板</div></div><span id="connection">● 正在连接</span></header>
+  <main>
+    <section class="toolbar"><label>时间 <input id="from" type="date" /></label><label>店铺 <select id="shop"><option value="">全部店铺</option></select></label><label>状态 <select id="status"><option value="">全部状态</option><option value="pdd-resolution-succeeded">处理成功</option><option value="manual-review-required">人工复核</option><option value="flow-paused">失败/暂停</option></select></label><button class="primary" id="refresh">查询</button><button id="verification">验证定位</button></section>
+    <section class="grid"><article class="card"><small>工单总量</small><div class="metric" id="total">-</div></article><article class="card"><small>自动处理成功</small><div class="metric healthy" id="success">-</div></article><article class="card"><small>转人工/验证</small><div class="metric" id="manual">-</div></article><article class="card"><small>失败/暂停</small><div class="metric danger" id="failed">-</div></article><article class="card"><small>处理中</small><div class="metric" id="processing">-</div></article></section>
+    <section class="layout"><div class="panel"><h2>工单明细</h2><table><thead><tr><th>店铺</th><th>订单号</th><th>场景</th><th>物流</th><th>状态</th><th>更新时间</th></tr></thead><tbody id="orders"><tr><td colspan="6" class="empty">正在加载</td></tr></tbody></table></div><div class="panel"><h2>店铺健康度</h2><div id="shops" class="empty">正在加载</div><h2>验证定位</h2><div id="verifications" class="empty">暂无验证码或滑块</div></div></section>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+

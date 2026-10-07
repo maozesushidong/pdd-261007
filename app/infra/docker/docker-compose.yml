@@ -1,0 +1,67 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: workorders
+      POSTGRES_USER: workorders
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ../db/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U workorders -d workorders"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis:
+    image: redis:7.4.2-alpine3.21
+    volumes:
+      - redis-data:/data
+  minio:
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-change-me-minio}
+    volumes:
+      - minio-data:/data
+  api:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.api
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: 3000
+      WORKFLOW_DATA_ROOT: /var/lib/pdd-workflow
+    ports: ["3000:3000"]
+    volumes:
+      - workflow-data:/var/lib/pdd-workflow
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_started }
+  worker:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.worker
+    environment:
+      WORKFLOW_BROWSER_MODE: headless
+      WORKFLOW_DATA_ROOT: /var/lib/pdd-workflow
+    volumes:
+      - workflow-data:/var/lib/pdd-workflow
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_started }
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.web
+    environment:
+      WEB_HOST: 0.0.0.0
+      WEB_PORT: 4173
+    ports: ["4173:4173"]
+    depends_on: [api]
+volumes:
+  postgres-data:
+  redis-data:
+  minio-data:
+  workflow-data:

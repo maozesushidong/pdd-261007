@@ -1,0 +1,58 @@
+/* Preserve the trend presentation already used by the local public frontend. */
+.trend-section { overflow: hidden; }
+.trend-heading { min-height: 58px; padding: 0 16px; border-bottom: 1px solid var(--soft-line); }
+.trend-controls { display: inline-flex; align-items: center; gap: 3px; padding: 3px; background: #f7f5f6; border: 1px solid #e7e3e5; border-radius: 6px; }
+.trend-controls > span { margin: 0 6px 0 7px; color: var(--muted); font-size: 10px; }
+.trend-controls button { min-width: 34px; height: 28px; padding: 0 8px; color: #756f74; background: transparent; border: 0; border-radius: 4px; font-size: 11px; cursor: pointer; }
+.trend-controls button:hover { color: var(--public-brand-dark); background: #fff; }
+.trend-controls button.active { color: #fff; background: var(--public-brand); box-shadow: 0 2px 5px #c224302e; }
+
+.trend-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--soft-line); }
+.trend-metrics > div { display: grid; align-content: center; gap: 6px; min-height: 86px; padding: 14px 18px; border-right: 1px solid var(--soft-line); }
+.trend-metrics > div:last-child { border-right: 0; }
+.trend-metrics span { color: var(--muted); font-size: 10px; }
+.trend-metrics strong { color: var(--ink); font-size: 24px; line-height: 1; }
+.trend-metrics .completed strong { color: var(--green); }
+.trend-metrics .incomplete strong { color: var(--red); }
+.trend-metrics .rate strong { color: var(--public-brand-dark); }
+
+.trend-chart-shell { position: relative; min-height: 296px; padding: 12px 16px 11px; }
+.trend-legend { display: flex; align-items: center; gap: 17px; padding: 0 0 3px 26px; color: var(--muted); font-size: 10px; }
+.trend-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.trend-legend i { display: inline-block; width: 17px; height: 3px; border-radius: 2px; }
+.trend-legend i.total { background: var(--public-brand); }
+.trend-legend i.completed { background: var(--green); }
+.trend-chart { display: block; width: 100%; height: 242px; overflow: visible; }
+.trend-grid-line { stroke: #eee9eb; stroke-width: 1px; }
+.trend-axis-label { fill: #9b959a; font-variant-numeric: tabular-nums; font-size: 10px; }
+.trend-line { fill: none; stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; }
+.trend-line.total { stroke: var(--public-brand); }
+.trend-line.completed { stroke: var(--green); }
+.trend-point { stroke: #fff; stroke-width: 2px; }
+.trend-point.total { fill: var(--public-brand); }
+.trend-point.completed { fill: var(--green); }
+.trend-hover-target { fill: transparent; stroke: transparent; cursor: crosshair; }
+.trend-hover-target:focus { stroke: #d98a90; stroke-width: 2px; stroke-dasharray: 3 2; outline: none; }
+
+.trend-tooltip { position: absolute; top: 37px; z-index: 2; display: grid; gap: 5px; min-width: 145px; padding: 9px 11px; color: #4b454a; background: #fffffffa; border: 1px solid #e4dadd; border-radius: 6px; font-size: 10px; transform: translate(-50%); box-shadow: 0 7px 20px #311f2321; pointer-events: none; }
+.trend-tooltip::after { content: ""; position: absolute; bottom: -6px; left: 50%; width: 10px; height: 10px; background: #fff; border-bottom: 1px solid #e4dadd; border-right: 1px solid #e4dadd; transform: translate(-50%) rotate(45deg); }
+.trend-tooltip strong { color: var(--public-brand-dark); font-size: 11px; }
+.trend-tooltip span { display: flex; justify-content: space-between; gap: 14px; }
+.trend-tooltip b { color: var(--ink); }
+.trend-inline-state { display: flex; justify-content: center; align-items: center; gap: 9px; min-height: 104px; padding: 18px; font-size: 11px; }
+.trend-inline-state.warning { color: #805c22; background: #fff9ed; }
+.trend-inline-state.error { color: #9d3038; background: #fff4f4; }
+.trend-inline-state .button { min-height: 30px; padding: 5px 10px; color: var(--public-brand-dark); background: #fff; border-color: #e5b9bd; }
+.trend-inline-state .button:hover { color: #fff; background: var(--public-brand); border-color: var(--public-brand); }
+.public-viewer .trend-section { border-color: #e3e0e2; }
+.public-viewer .trend-controls button.active { color: #fff; background: var(--public-brand); }
+
+@media (max-width: 720px) {
+  .trend-heading { flex-direction: column; align-items: flex-start; }
+  .trend-controls { align-self: flex-start; }
+  .trend-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trend-metrics > div:nth-child(2) { border-right: 0; }
+  .trend-metrics > div:nth-child(-n+2) { border-bottom: 1px solid var(--soft-line); }
+  .trend-chart-shell { min-height: 250px; padding-left: 9px; padding-right: 9px; }
+  .trend-chart { min-height: 200px; }
+}

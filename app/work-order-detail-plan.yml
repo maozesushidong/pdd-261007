@@ -1,0 +1,237 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e8]:
+      - link "商家后台" [ref=e9] [cursor=pointer]:
+        - /url: /home
+        - generic [ref=e10]:
+          - img [ref=e11]
+          - generic [ref=e13]: 商家后台
+      - generic [ref=e14]:
+        - generic [ref=e16]:
+          - img [ref=e17]
+          - textbox "搜索功能/订单/商品/课程/规则/帮助/服务" [ref=e18]
+        - generic [ref=e22]: 您可输入关键词搜索功能/订单/服务/课程/规则/帮助
+      - generic [ref=e25]:
+        - link "售后风险防控 18" [ref=e27] [cursor=pointer]:
+          - /url: https://mms.pinduoduo.com/orders/warnCenter?warnTabType=2&msfrom=EventCenter
+          - generic [ref=e29]:
+            - text: 售后风险防控
+            - generic [ref=e30]: "18"
+        - link "即将逾期发货 1" [ref=e32] [cursor=pointer]:
+          - /url: https://mms.pinduoduo.com/orders/list?type=12
+          - generic [ref=e34]:
+            - text: 即将逾期发货
+            - generic [ref=e35]: "1"
+        - link "可申诉订单 99+" [ref=e37] [cursor=pointer]:
+          - /url: https://mms.pinduoduo.com/orders/appeals/aftersale/order?from=home-event-center&spm=10576&refer_page_url=aHR0cHM6Ly9tbXMucGluZHVvZHVvLmNvbS9qaW5iYW8vcHJvbW90aW9uL2luZGV4P2NsaWNrX2Zyb209TU1TX1NJREVCQVI=
+          - generic [ref=e39]:
+            - text: 可申诉订单
+            - generic [ref=e40]: 99+
+        - generic [ref=e43]:
+          - generic [ref=e45] [cursor=pointer]:
+            - generic [ref=e46]:
+              - text: 更多
+              - generic [ref=e47]: "61"
+            - img [ref=e48]
+          - generic:
+            - generic:
+              - text: 物流停滞
+              - generic: "1"
+            - generic:
+              - text: 待商家处理售后
+              - generic: "55"
+            - generic:
+              - text: 待处理工单
+              - generic: "5"
+      - generic [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+        - generic [ref=e58]: 跨境/社区团购
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - generic [ref=e62]: 跨境电商卖家招募
+            - generic [ref=e63]: TEMU半托管电商卖家招募
+            - button "签约入驻" [ref=e65]
+          - generic [ref=e66]:
+            - generic [ref=e67]: 网格仓/服务站招募
+            - generic [ref=e68]: 有仓储配送资源？报名网格站，盘活线下资源
+            - button "前往报名" [ref=e70]
+      - generic [ref=e74] [cursor=pointer]:
+        - img [ref=e75]
+        - generic [ref=e78]: 客户端
+        - generic [ref=e79]:
+          - generic [ref=e80]:
+            - generic [ref=e81]:
+              - generic [ref=e82]: 手机App
+              - generic [ref=e83]: 随时随地经营，生意一手掌握
+              - img [ref=e85]
+              - generic [ref=e86]:
+                - generic [ref=e87]: 最新版本：V7.4.3
+                - generic [ref=e88]: 更新时间：2026年07月22日
+                - generic [ref=e89]: 手机App已支持鸿蒙系统
+            - generic [ref=e90]:
+              - generic [ref=e91]: Windows客户端
+              - generic [ref=e92]: 高效客服工具，多店同时经营
+              - img [ref=e94]
+              - generic [ref=e95]:
+                - generic [ref=e96]: 最新版本：V3.6.9
+                - generic [ref=e97]: 更新时间：2026年07月17日
+            - generic [ref=e98]:
+              - generic [ref=e99]: Mac客户端
+              - generic [ref=e100]: 多店高效经营，消息实时触达
+              - img [ref=e102]
+              - generic [ref=e103]:
+                - generic [ref=e104]: 最新版本：V1.0.19
+                - generic [ref=e105]: 更新时间：2026年07月13日
+            - generic [ref=e106]:
+              - generic [ref=e107]: 官方商机助手插件
+              - generic [ref=e108]: 一键识别商品，快速发布同款
+              - img [ref=e110]
+              - generic [ref=e111]: 查看安装教程
+          - link "查看客户端下载详情" [ref=e113]:
+            - /url: /other/downloadapp/
+      - generic [ref=e115] [cursor=pointer]:
+        - img [ref=e117]
+        - generic [ref=e121]: 规则中心
+      - generic [ref=e123] [cursor=pointer]:
+        - generic [ref=e124]:
+          - img [ref=e126]
+          - generic [ref=e127]:
+            - generic [ref=e129]: PANAPOPO医疗保健官方旗舰店
+            - generic [ref=e131]: PANAPOPO医疗保健官方旗舰店林动
+          - img [ref=e133]
+          - img [ref=e135]
+        - generic:
+          - generic [ref=e138]: 账号信息
+          - generic [ref=e141]: 店铺二维码
+          - generic [ref=e143]:
+            - text: 退出当前账号
+            - generic [ref=e144]: 登录其他账号需先退出当前账号
+  - main [ref=e147]:
+    - generic [ref=e152]:
+      - paragraph [ref=e153]:
+        - generic [ref=e154]: 工单管理/工单详情
+      - generic [ref=e155]:
+        - generic [ref=e157]:
+          - generic [ref=e160]:
+            - generic [ref=e161]: 【待处理】
+            - text: 在途无理由退款处理平台受理
+          - generic [ref=e162]:
+            - generic [ref=e166]:
+              - text: 剩
+              - generic [ref=e167]:
+                - generic [ref=e168]: 23时
+                - generic [ref=e169]: 18分
+                - generic [ref=e170]: 58秒
+            - generic [ref=e173]:
+              - img [ref=e174]
+              - generic [ref=e176]: 请按时完成，逾期可能导致平台介入、补偿消费者并对您的消费者体验指标造成影响
+            - generic [ref=e181]:
+              - generic [ref=e182]:
+                - generic [ref=e183]: 请安抚消费者并和消费者协商处理
+                - generic [ref=e184]: 请安抚消费者，满足消费者的合理售后需求
+              - generic [ref=e187]:
+                - generic [ref=e192]:
+                  - generic [ref=e194]: "*处理情况"
+                  - generic [ref=e198]:
+                    - generic [ref=e199] [cursor=pointer]:
+                      - generic [ref=e200]:
+                        - generic [ref=e201]
+                        - radio "   已同意退货退款" [checked]
+                      - generic [ref=e205]: 已同意退货退款
+                    - generic [ref=e206] [cursor=pointer]:
+                      - generic [ref=e207]:
+                        - generic [ref=e208]
+                        - radio "   同意退款"
+                      - generic [ref=e212]: 同意退款
+                    - generic [ref=e213] [cursor=pointer]:
+                      - generic [ref=e214]:
+                        - generic [ref=e215]
+                        - radio "   消费者超12小时未回复"
+                      - generic [ref=e219]: 消费者超12小时未回复
+                    - generic [ref=e220] [cursor=pointer]:
+                      - generic [ref=e221]:
+                        - generic [ref=e222]
+                        - radio "   已尽力提出方案但消费者不接受"
+                      - generic [ref=e226]: 已尽力提出方案但消费者不接受
+                    - generic [ref=e227] [cursor=pointer]:
+                      - generic [ref=e228]:
+                        - generic [ref=e229]
+                        - radio "   已协商一致"
+                      - generic [ref=e233]: 已协商一致
+                - button "提交" [ref=e235] [cursor=pointer]
+            - generic [ref=e236]: 服务进度
+            - generic [ref=e238]:
+              - img [ref=e240]
+              - generic [ref=e242]:
+                - generic [ref=e244]: 在途无理由退款处理
+                - generic [ref=e245]: 处理人：主账号
+                - generic [ref=e246]: 2026-07-24 14:29:16
+        - generic [ref=e248]:
+          - generic [ref=e249]:
+            - generic [ref=e250]: 订单信息查看详情
+            - generic [ref=e251]:
+              - generic [ref=e252]: 订单编号：260723-181592409660559复制
+              - generic [ref=e255]:
+                - generic [ref=e256]:
+                  - generic [ref=e259]: PANAPOPO医用护腰带腰肌劳损腰椎疼痛腰间盘突出久坐男女护腰神器
+                  - generic [ref=e260]: ¥35.7
+                - generic [ref=e261]: 医用5条锰钢板支撑护腰【痛症_牵引款】医生推荐-六倍强效支撑,大码【140斤-170斤】轻松弯腰不痛 x1
+                - generic [ref=e262]:
+                  - generic [ref=e263]: 已发货，待签收
+                  - generic [ref=e264]: 实收：¥35.7
+          - generic [ref=e265]:
+            - generic [ref=e266]: 售后信息查看详情
+            - generic [ref=e267]: 售后类型：退货退款
+            - generic [ref=e268]: 售后状态：已同意拒收退款，待用户拒收
+            - generic [ref=e269]: 退款金额：¥35.7
+          - generic [ref=e275]:
+            - generic [ref=e276]: 收货信息
+            - generic [ref=e277]:
+              - generic [ref=e280]:
+                - generic [ref=e281]: 
+                - generic [ref=e282]: 通过拨打隐私号等方式尝试获取用户联系方式或第三方账号，将构成诱导第三方违规，平台将严格依规处置
+              - generic [ref=e285]:
+                - generic [ref=e286]: 
+                - text: 联系消费者请拨打隐私号+分机号[8042]
+              - generic [ref=e287]:
+                - generic [ref=e288]:
+                  - generic [ref=e289]:
+                    - generic [ref=e290]: 收货人
+                    - generic [ref=e293]: 王荣美[8042]
+                  - generic [ref=e294]:
+                    - generic [ref=e295]: 手机号
+                    - generic [ref=e298]:
+                      - generic [ref=e299]: 1*********9
+                      - generic [ref=e300] [cursor=pointer]: 查看手机号
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: 联系地址
+                    - generic [ref=e305]: 江苏省南京市溧水区 秦淮东郡[8042]
+                - button "复制" [ref=e306] [cursor=pointer]
+          - generic [ref=e308]:
+            - generic [ref=e309]: 物流轨迹
+            - generic [ref=e310]:
+              - generic [ref=e313]:
+                - generic [ref=e315] [cursor=pointer]: 发货物流
+                - generic [ref=e317] [cursor=pointer]: 退货物流
+              - generic [ref=e318]:
+                - generic [ref=e319]:
+                  - text: 物流信息：
+                  - generic [ref=e320]: 韵达快递 465528488874079
+                  - text: 复制
+                - generic [ref=e321]:
+                  - generic [ref=e326]:
+                    - generic [ref=e327]: 【石家庄市】已离开 河北石家庄分拨交付中心；发往 长三角一体化FB(博望)。因运输距离较远，预计将在【7月25日上午】到达镇江市，请您放心（如遇物流问题无需找商家/平台，拨打专属电话：025-83084200为您解决，或关注“韵达快递”官方微信公众号获取实时物流信息）
+                    - generic [ref=e328]: 2026-07-24 00:35:53
+                  - generic [ref=e333]:
+                    - generic [ref=e334]: 【石家庄市】已到达 河北石家庄分拨交付中心（如遇物流问题无需找商家/平台，拨打专属电话：0311-68148066为您解决，或关注“韵达快递”官方微信公众号获取实时物流信息）
+                    - generic [ref=e335]: 2026-07-24 00:22:07
+                  - generic [ref=e340]:
+                    - generic [ref=e341]: 【衡水市】已离开 河北冀州公司；发往 河北石家庄分拨交付中心（如遇物流问题无需找商家/平台，拨打专属电话：0318-5234212为您解决，或关注“韵达快递”官方微信公众号获取实时物流信息）
+                    - generic [ref=e342]: 2026-07-23 20:32:34
+                  - generic [ref=e347]:
+                    - generic [ref=e348]: 【衡水市】河北冀州公司-王立佳（15333380498） 已揽收（如遇物流问题无需找商家/平台，拨打专属电话：0318-5234212为您解决，或关注“韵达快递”官方微信公众号获取实时物流信息）
+                    - generic [ref=e349]: 2026-07-23 19:59:29
+                  - generic [ref=e353]:
+                    - generic [ref=e354]: 商家已发货，正在通知韵达快递取件
+                    - generic [ref=e355]: 2026-07-23 09:08:56
+                  - generic [ref=e356] [cursor=pointer]: 收起

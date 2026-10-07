@@ -1,0 +1,6 @@
+{
+  "name": "@work-order/worker",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node src/main.mjs", "preflight": "node src/preflight.mjs" }
+}

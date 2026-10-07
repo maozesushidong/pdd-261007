@@ -1,0 +1,6 @@
+*.sh text eol=lf
+Dockerfile* text eol=lf
+*.conf text eol=lf
+
+# Preserve exact snapshot bytes for checksum verification.
+* -text

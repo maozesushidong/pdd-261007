@@ -1,0 +1,13 @@
+ARG WORKER_BASE_IMAGE=mcr.microsoft.com/playwright:v1.61.1-noble
+FROM ${WORKER_BASE_IMAGE}
+ARG APP_VERSION=development
+ARG GIT_SHA=unknown
+LABEL org.opencontainers.image.title="pdd-workflow-worker" \
+      org.opencontainers.image.version="$APP_VERSION" \
+      org.opencontainers.image.revision="$GIT_SHA"
+WORKDIR /app
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+CMD ["node", "apps/worker/src/main.mjs"]

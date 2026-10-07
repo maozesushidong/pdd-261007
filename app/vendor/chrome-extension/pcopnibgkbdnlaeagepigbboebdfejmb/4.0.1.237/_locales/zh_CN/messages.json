@@ -1,0 +1,11 @@
+{
+   "app_name": {
+      "message": "实在Agent"
+   },
+   "options_desc": {
+      "message": "在这里配置扩展的通用选项。"
+   },
+   "options_title": {
+      "message": "扩展设置"
+   }
+}

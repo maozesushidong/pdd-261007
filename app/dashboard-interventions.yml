@@ -1,0 +1,104 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - img "盘多多" [ref=e6]
+      - generic [ref=e7]:
+        - strong [ref=e8]: 盘多多
+        - generic [ref=e9]: 工单自动化运营台
+    - navigation [ref=e10]:
+      - button "运营总览" [ref=e11] [cursor=pointer]
+      - button "工单中心" [ref=e18] [cursor=pointer]
+      - button "运行日志" [ref=e23] [cursor=pointer]
+      - button "转人工" [active] [ref=e28] [cursor=pointer]
+      - button "验证定位" [ref=e34] [cursor=pointer]
+    - generic [ref=e42]:
+      - generic [ref=e43]: STG
+      - generic [ref=e44]:
+        - strong [ref=e45]: Windows Docker
+        - generic [ref=e46]: PostgreSQL 数据源
+  - generic [ref=e47]:
+    - banner [ref=e48]:
+      - combobox "店铺范围" [ref=e55]:
+        - option "全部店铺" [selected]
+        - option "PANAPOPO医疗保健官方旗舰店林动"
+        - option "PANAPOPO医疗器械官方旗舰店梦蝶"
+        - option "松藤Yazc海外好物馆林动"
+      - generic [ref=e56]:
+        - textbox "开始日期" [ref=e59]: 2026-07-23
+        - generic [ref=e60]: 至
+        - textbox "结束日期" [ref=e61]: 2026-07-29
+      - generic [ref=e62]:
+        - generic [ref=e63]: 实时连接
+        - button "刷新数据" [ref=e71] [cursor=pointer]
+        - link "导出当前工单" [ref=e77] [cursor=pointer]:
+          - /url: /api/v1/exports/work-orders.csv?from=2026-07-23&to=2026-07-29
+        - button "所有者登录" [ref=e81] [cursor=pointer]
+    - main [ref=e85]:
+      - generic [ref=e1608]:
+        - generic [ref=e1610]:
+          - generic [ref=e1611]: HUMAN IN THE LOOP
+          - heading "转人工中心" [level=1] [ref=e1612]
+          - paragraph [ref=e1613]: 前端人工事项与钉钉机器人通知分开追踪
+        - generic [ref=e1614]:
+          - button "前端转人工" [ref=e1615] [cursor=pointer]
+          - button "机器人转人工" [ref=e1620] [cursor=pointer]
+        - generic [ref=e1624]:
+          - generic [ref=e1630]:
+            - strong [ref=e1631]: 全部中断与人工关注事项
+            - generic [ref=e1632]: 登录、验证、等待物流、页面异常和业务冲突均可追溯
+          - combobox [ref=e1633]:
+            - option "全部状态" [selected]
+            - option "待处理"
+            - option "已确认"
+            - option "已解决"
+            - option "已取消"
+        - generic [ref=e1634]:
+          - generic [ref=e1636]:
+            - text: 共
+            - strong [ref=e1637]: "5"
+            - text: 项
+          - generic [ref=e1638]:
+            - article [ref=e1639]:
+              - generic [ref=e1643]:
+                - generic [ref=e1644]:
+                  - strong [ref=e1645]: 异常网点预警
+                  - generic [ref=e1646]: 待处理
+                - paragraph [ref=e1648]: 拼多多当前没有快递、运单号或物流轨迹，等待下一轮物流更新
+                - generic [ref=e1649]: 松藤 Yazc 海外店 · 260729-237754140190325 · 07/30 03:30:11
+              - generic [ref=e1650]: 前端看板
+            - article [ref=e1656]:
+              - generic [ref=e1660]:
+                - generic [ref=e1661]:
+                  - strong [ref=e1662]: 在途无理由退款处理
+                  - generic [ref=e1663]: 待处理
+                - paragraph [ref=e1665]: "流程需要人工复核（阶段: pdd-resolution-submit）：拼多多主观原因拦截流程缺少必选原因: 主观原因不想要"
+                - generic [ref=e1666]: PANAPOPO 医疗保健店 · 260729-472247191103493 · 07/30 01:58:15
+              - generic [ref=e1667]: 前端看板
+            - article [ref=e1673]:
+              - generic [ref=e1677]:
+                - generic [ref=e1678]:
+                  - strong [ref=e1679]: page-crashed
+                  - generic [ref=e1680]: 待处理
+                - paragraph [ref=e1682]: "browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab"
+                - generic [ref=e1683]: PANAPOPO 医疗器械店 · 店铺级事件 · 07/30 01:58:11
+              - generic [ref=e1684]: 前端看板
+            - article [ref=e1690]:
+              - generic [ref=e1694]:
+                - generic [ref=e1695]:
+                  - strong [ref=e1696]: 订单问题：在途无理由退款处理
+                  - generic [ref=e1697]: 待处理
+                - paragraph [ref=e1699]: 发现 1 条未知历史工单，禁止重复创建
+                - generic [ref=e1700]: PANAPOPO 医疗保健店 · 260724-623923709552188 · 07/27 18:58:13
+              - generic [ref=e1701]: 前端看板
+            - article [ref=e1707]:
+              - generic [ref=e1711]:
+                - generic [ref=e1712]:
+                  - strong [ref=e1713]: 订单问题：在途无理由退款处理
+                  - generic [ref=e1714]: 待处理
+                - paragraph [ref=e1716]: 拼多多物流时间线或阶段分析不完整
+                - generic [ref=e1717]: 松藤 Yazc 海外店 · 260726-414460157590715 · 07/27 18:58:13
+              - generic [ref=e1718]: 前端看板
+    - contentinfo [ref=e103]:
+      - generic [ref=e104]: 数据源 PostgreSQL
+      - generic [ref=e107]: 三店独立 Worker
+      - generic [ref=e111]: 最近刷新 03:56:23

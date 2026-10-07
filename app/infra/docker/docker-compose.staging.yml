@@ -1,0 +1,486 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: 10m
+    max-file: "5"
+
+services:
+  display:
+    profiles: ["legacy-visual"]
+    image: ${DESKTOP_IMAGE:-pdd-workflow-desktop:playwright-1.61.1}
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        rm -f /tmp/.X11-unix/X99 /tmp/.X11-unix/X100 /tmp/.X11-unix/X101
+        /tmp/.X99-lock /tmp/.X100-lock /tmp/.X101-lock &&
+        Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp -ac &
+        Xvfb :100 -screen 0 1920x1080x24 -nolisten tcp -ac &
+        Xvfb :101 -screen 0 1920x1080x24 -nolisten tcp -ac &
+        DISPLAY=:99 openbox-session >/tmp/openbox-healthcare.log 2>&1 &
+        DISPLAY=:100 openbox-session >/tmp/openbox-medical-device.log 2>&1 &
+        DISPLAY=:101 openbox-session >/tmp/openbox-songteng.log 2>&1 &
+        exec tail -f /dev/null
+    environment:
+      DISPLAY: :99
+    volumes:
+      - x11-staging-socket:/tmp/.X11-unix
+    healthcheck:
+      test: ["CMD-SHELL", "xdpyinfo -display :99 >/dev/null 2>&1 && xdpyinfo -display :100 >/dev/null 2>&1 && xdpyinfo -display :101 >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 200
+    logging: *default-logging
+
+  vnc:
+    profiles: ["legacy-visual"]
+    image: ${DESKTOP_IMAGE:-pdd-workflow-desktop:playwright-1.61.1}
+    restart: unless-stopped
+    # VNC is reachable only on the internal Compose network. Binding it to
+    # localhost inside this container prevents the separate noVNC container
+    # from connecting; no host port is published here.
+    # Favor a sharp LAN/SSH-tunnel image. The defaults trade too much detail
+    # for compression, which makes text in the remote browser hard to read.
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        x11vnc -display :99 -forever -shared -listen 0.0.0.0 -rfbport 5900 -nopw -noshm -noxdamage -modtweak -xkb -capslock -add_keysyms -clear_all -repeat -speeds lan -wait 5 -defer 5 &
+        x11vnc -display :100 -forever -shared -listen 0.0.0.0 -rfbport 5901 -nopw -noshm -noxdamage -modtweak -xkb -capslock -add_keysyms -clear_all -repeat -speeds lan -wait 5 -defer 5 &
+        exec x11vnc -display :101 -forever -shared -listen 0.0.0.0 -rfbport 5902 -nopw -noshm -noxdamage -modtweak -xkb -capslock -add_keysyms -clear_all -repeat -speeds lan -wait 5 -defer 5
+    environment:
+      DISPLAY: :99
+    volumes:
+      - x11-staging-socket:/tmp/.X11-unix
+    depends_on:
+      display:
+        condition: service_healthy
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 100
+    logging: *default-logging
+
+  novnc:
+    profiles: ["legacy-visual"]
+    image: ${DESKTOP_IMAGE:-pdd-workflow-desktop:playwright-1.61.1}
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        sed -i "s/UI.initSetting('resize', 'off')/UI.initSetting('resize', 'scale')/; s/UI.initSetting('quality', 6)/UI.initSetting('quality', 9)/; s/UI.initSetting('compression', 2)/UI.initSetting('compression', 0)/" /usr/share/novnc/app/ui.js &&
+        cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html &&
+        exec websockify --web=/usr/share/novnc 6080 vnc:5900
+    ports:
+      - "127.0.0.1:${NOVNC_PORT_HOST:-6080}:6080"
+    depends_on:
+      vnc:
+        condition: service_started
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 100
+    logging: *default-logging
+
+  novnc-medical-device:
+    profiles: ["legacy-visual"]
+    image: ${DESKTOP_IMAGE:-pdd-workflow-desktop:playwright-1.61.1}
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        sed -i "s/UI.initSetting('resize', 'off')/UI.initSetting('resize', 'scale')/; s/UI.initSetting('quality', 6)/UI.initSetting('quality', 9)/; s/UI.initSetting('compression', 2)/UI.initSetting('compression', 0)/" /usr/share/novnc/app/ui.js &&
+        cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html &&
+        exec websockify --web=/usr/share/novnc 6080 vnc:5900
+    ports:
+      - "127.0.0.1:${NOVNC_MEDICAL_DEVICE_PORT_HOST:-6081}:6080"
+    depends_on:
+      vnc:
+        condition: service_started
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 100
+    logging: *default-logging
+
+  novnc-songteng:
+    profiles: ["legacy-visual"]
+    image: ${DESKTOP_IMAGE:-pdd-workflow-desktop:playwright-1.61.1}
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        sed -i "s/UI.initSetting('resize', 'off')/UI.initSetting('resize', 'scale')/; s/UI.initSetting('quality', 6)/UI.initSetting('quality', 9)/; s/UI.initSetting('compression', 2)/UI.initSetting('compression', 0)/" /usr/share/novnc/app/ui.js &&
+        cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html &&
+        exec websockify --web=/usr/share/novnc 6080 vnc:5900
+    ports:
+      - "127.0.0.1:${NOVNC_SONGTENG_PORT_HOST:-6082}:6080"
+    depends_on:
+      vnc:
+        condition: service_started
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 100
+    logging: *default-logging
+
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${POSTGRES_HOST_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-workorders}
+      POSTGRES_USER: ${POSTGRES_USER:-workorders}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.staging}
+    volumes:
+      - postgres-staging-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 200
+    logging: *default-logging
+
+  db-migrate:
+    image: postgres:16
+    restart: "no"
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: ${POSTGRES_DB:-workorders}
+      PGUSER: ${POSTGRES_USER:-workorders}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.staging}
+    volumes:
+      - ../db/migrations:/migrations:ro
+      - ../db/run-migrations.sh:/run-migrations.sh:ro
+    command: ["/bin/sh", "/run-migrations.sh"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    logging: *default-logging
+
+  redis:
+    image: redis:7.4.2-alpine3.21
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--save", "60", "100"]
+    volumes:
+      - redis-staging-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    mem_limit: 512m
+    cpus: 0.5
+    pids_limit: 100
+    logging: *default-logging
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?set MINIO_ROOT_USER in .env.staging}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?set MINIO_ROOT_PASSWORD in .env.staging}
+    volumes:
+      - minio-staging-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 200
+    logging: *default-logging
+
+  minio-init:
+    image: minio/mc:RELEASE.2025-04-16T18-13-26Z
+    restart: "no"
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?set MINIO_ROOT_USER in .env.staging}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?set MINIO_ROOT_PASSWORD in .env.staging}
+      S3_BUCKET: ${S3_BUCKET:-pdd-workflow-staging}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        mc alias set local http://minio:9000 "$${MINIO_ROOT_USER}" "$${MINIO_ROOT_PASSWORD}" &&
+        mc mb --ignore-existing "local/$${S3_BUCKET}" &&
+        mc anonymous set none "local/$${S3_BUCKET}"
+    logging: *default-logging
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.api
+    restart: unless-stopped
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: 3000
+      DATA_BACKEND: ${DATA_BACKEND:-legacy-json}
+      WORKFLOW_DATA_ROOT: ${WORKFLOW_DATA_ROOT:-/var/lib/pdd-workflow}
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in .env.staging}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      S3_ENDPOINT: ${S3_ENDPOINT:-http://minio:9000}
+      S3_REGION: ${S3_REGION:-us-east-1}
+      S3_BUCKET: ${S3_BUCKET:-pdd-workflow-staging}
+      S3_ACCESS_KEY_FILE: /run/workflow-secrets/S3_ACCESS_KEY
+      S3_SECRET_KEY_FILE: /run/workflow-secrets/S3_SECRET_KEY
+      OWNER_USERNAME: ${OWNER_USERNAME:-owner}
+      OWNER_PASSWORD_FILE: /run/workflow-secrets/OWNER_PASSWORD
+      OWNER_SESSION_SECRET_FILE: /run/workflow-secrets/OWNER_SESSION_SECRET
+      WORKER_INGEST_TOKEN_FILE: /run/workflow-secrets/WORKER_INGEST_TOKEN
+      WORKER_EVENT_ONLY_SOURCE_IDS: ${WORKER_EVENT_ONLY_SOURCE_IDS:-staging-docker-worker}
+      VERIFICATION_SCREENSHOT_RETENTION_DAYS: ${VERIFICATION_SCREENSHOT_RETENTION_DAYS:-7}
+      PDD_TMS_SCREENSHOT_RETENTION_DAYS: ${PDD_TMS_SCREENSHOT_RETENTION_DAYS:-7}
+    ports: !override
+      - "127.0.0.1:${API_PORT_HOST:-3000}:3000"
+    volumes:
+      - ${LEGACY_DATA_PATH:-../../.codex}:/var/lib/pdd-workflow:ro
+      - ${WORKFLOW_SECRETS_DIR:-../../secrets/staging}:/run/workflow-secrets:ro
+    depends_on:
+      db-migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/healthz').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 200
+    logging: *default-logging
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.web
+    restart: unless-stopped
+    environment:
+      WEB_HOST: 0.0.0.0
+      WEB_PORT: 4173
+      API_BASE_URL: http://api:3000
+      REMOTE_DESKTOP_BASE_URL: http://worker:6080
+      REMOTE_DESKTOP_MAX_SLOTS: ${REMOTE_DESKTOP_MAX_SLOTS:-1000}
+    ports: !override
+      - "127.0.0.1:${WEB_PORT_HOST:-4173}:4173"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4173/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 100
+    logging: *default-logging
+
+  notifier:
+    profiles: ["notifications"]
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.api
+    restart: unless-stopped
+    command: ["node", "scripts/dingtalk-dispatcher.mjs"]
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in .env.staging}
+      DINGTALK_NOTIFICATIONS_ENABLED: ${DINGTALK_NOTIFICATIONS_ENABLED:-false}
+      DINGTALK_POLL_INTERVAL_MS: ${DINGTALK_POLL_INTERVAL_MS:-15000}
+      DASHBOARD_PUBLIC_URL: ${DASHBOARD_PUBLIC_URL:-http://127.0.0.1:4173}
+      DINGTALK_WEBHOOK_FILE: /run/workflow-secrets/DINGTALK_WEBHOOK
+      DINGTALK_SIGNING_SECRET_FILE: /run/workflow-secrets/DINGTALK_SIGNING_SECRET
+      DINGTALK_RECIPIENTS_FILE: /run/workflow-secrets/DINGTALK_RECIPIENTS
+      DINGTALK_RETURN_REFUND_RECIPIENTS_FILE: /run/workflow-secrets/DINGTALK_RETURN_REFUND_RECIPIENTS
+    volumes:
+      - ${WORKFLOW_SECRETS_DIR:-../../secrets/staging}:/run/workflow-secrets:ro
+    depends_on:
+      db-migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "import('pg').then(async ({default:pg})=>{const pool=new pg.Pool({connectionString:process.env.DATABASE_URL});try{await pool.query('SELECT 1')}finally{await pool.end()}}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    mem_limit: 256m
+    cpus: 0.25
+    pids_limit: 100
+    logging: *default-logging
+
+  worker:
+    profiles: ["worker"]
+    image: pdd-workflow-worker:${WORKER_IMAGE_TAG:-staging}
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.worker
+      args:
+        WORKER_BASE_IMAGE: ${DESKTOP_IMAGE:-pdd-workflow-desktop:playwright-1.61.1}
+    restart: unless-stopped
+    stop_grace_period: 3m
+    init: true
+    environment:
+      WORKER_EXECUTION_ENABLED: ${WORKER_EXECUTION_ENABLED:-false}
+      WORKER_DATA_BACKEND: ${WORKER_DATA_BACKEND:-postgres}
+      WORKER_RUN_MODE: ${WORKER_RUN_MODE:-shadow}
+      WORKER_LIVE_APPROVED: ${WORKER_LIVE_APPROVED:-false}
+      WORKER_DYNAMIC_SUPERVISOR: "true"
+      WORKER_SUPERVISOR_INTERVAL_MS: ${WORKER_SUPERVISOR_INTERVAL_MS:-5000}
+      WORKER_SUPERVISOR_MAX_SHOPS: ${WORKER_SUPERVISOR_MAX_SHOPS:-0}
+      WORKER_SCHEDULER_MODE: ${WORKER_SCHEDULER_MODE:-legacy}
+      WORKER_SLOT_CAPACITY_MODE: ${WORKER_SLOT_CAPACITY_MODE:-unbounded}
+      WORKER_SLOT_HARD_LIMIT: ${WORKER_SLOT_HARD_LIMIT:-0}
+      WORKER_SLOT_MEMORY_BUDGET_MB: ${WORKER_SLOT_MEMORY_BUDGET_MB:-1280}
+      WORKER_SLOT_RESERVED_MEMORY_MB: ${WORKER_SLOT_RESERVED_MEMORY_MB:-4096}
+      WORKER_SLOT_SESSION_MS: ${WORKER_SLOT_SESSION_MS:-600000}
+      WORKER_SLOT_LAUNCH_INTERVAL_MS: ${WORKER_SLOT_LAUNCH_INTERVAL_MS:-1000}
+      WORKER_HOT_WINDOW_MS: ${WORKER_HOT_WINDOW_MS:-7200000}
+      WORKER_HOT_SCAN_INTERVAL_MS: ${WORKER_HOT_SCAN_INTERVAL_MS:-120000}
+      WORKER_COLD_SCAN_INTERVAL_MS: ${WORKER_COLD_SCAN_INTERVAL_MS:-600000}
+      WORKER_DB_POOL_MAX: ${WORKER_DB_POOL_MAX:-2}
+      WORKER_DISPLAY_BASE: ${WORKER_DISPLAY_BASE:-200}
+      WORKER_VNC_PORT_BASE: ${WORKER_VNC_PORT_BASE:-5900}
+      WORKER_NOVNC_PORT_BASE: ${WORKER_NOVNC_PORT_BASE:-6080}
+      WORKER_ID: ${WORKER_ID:-staging-postgres-worker}
+      WORKER_POLL_INTERVAL_MS: ${WORKER_POLL_INTERVAL_MS:-2000}
+      WORKER_MAX_ORDERS: ${WORKER_MAX_ORDERS:-0}
+      WORKER_HEARTBEAT_FILE: /tmp/pdd-worker-supervisor-heartbeat.json
+      WORKER_LEASE_SECONDS: ${WORKER_LEASE_SECONDS:-180}
+      WORKER_LEASE_RENEW_MS: ${WORKER_LEASE_RENEW_MS:-60000}
+      WORKER_HEARTBEAT_INTERVAL_MS: ${WORKER_HEARTBEAT_INTERVAL_MS:-15000}
+      WORKER_BROWSER_HEALTH_CHECK_INTERVAL_MS: ${WORKER_BROWSER_HEALTH_CHECK_INTERVAL_MS:-2500}
+      WORKER_BROWSER_HEALTH_TIMEOUT_MS: ${WORKER_BROWSER_HEALTH_TIMEOUT_MS:-60000}
+      WORKER_BROWSER_HEALTH_STARTUP_GRACE_MS: ${WORKER_BROWSER_HEALTH_STARTUP_GRACE_MS:-90000}
+      WORKER_RESIDENT_BROWSER: ${WORKER_RESIDENT_BROWSER:-true}
+      WORKFLOW_BROWSER_HEALTH_INTERVAL_MS: ${WORKFLOW_BROWSER_HEALTH_INTERVAL_MS:-5000}
+      WORKFLOW_BROWSER_HEALTH_PROBE_TIMEOUT_MS: ${WORKFLOW_BROWSER_HEALTH_PROBE_TIMEOUT_MS:-4000}
+      PDD_DISCOVERY_INTERVAL_MS: ${PDD_DISCOVERY_INTERVAL_MS:-60000}
+      PDD_ACTION_DELAY_MS: ${PDD_ACTION_DELAY_MS:-900}
+      OMS_ACTION_DELAY_MS: ${OMS_ACTION_DELAY_MS:-250}
+      TMS_ACTION_DELAY_MS: ${TMS_ACTION_DELAY_MS:-250}
+      WORKFLOW_ACTION_DELAY_MS: ${WORKFLOW_ACTION_DELAY_MS:-250}
+      OMS_READY_POLL_MS: ${OMS_READY_POLL_MS:-250}
+      TMS_CREATED_ROW_POLL_INTERVAL_MS: ${TMS_CREATED_ROW_POLL_INTERVAL_MS:-1000}
+      WORKFLOW_HUMAN_VERIFICATION_POLL_MS: ${WORKFLOW_HUMAN_VERIFICATION_POLL_MS:-250}
+      WORKFLOW_HUMAN_VERIFICATION_CLEAR_STABLE_MS: ${WORKFLOW_HUMAN_VERIFICATION_CLEAR_STABLE_MS:-500}
+      PDD_QUERY_SETTLE_MS: ${PDD_QUERY_SETTLE_MS:-8000}
+      PDD_DETAIL_SETTLE_MS: ${PDD_DETAIL_SETTLE_MS:-10000}
+      PDD_LOGISTICS_SETTLE_MS: ${PDD_LOGISTICS_SETTLE_MS:-8000}
+      PDD_SUBMIT_SETTLE_MS: ${PDD_SUBMIT_SETTLE_MS:-30000}
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in .env.staging}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      S3_ENDPOINT: ${S3_ENDPOINT:-http://minio:9000}
+      S3_REGION: ${S3_REGION:-us-east-1}
+      S3_BUCKET: ${S3_BUCKET:-pdd-workflow-staging}
+      S3_ACCESS_KEY_FILE: /run/workflow-secrets/S3_ACCESS_KEY
+      S3_SECRET_KEY_FILE: /run/workflow-secrets/S3_SECRET_KEY
+      WORKFLOW_DATA_ROOT: /var/lib/pdd-workflow
+      WORKFLOW_BROWSER_MODE: server-headed
+      WORKFLOW_BROWSER_EXTENSION_PATHS: ${WORKFLOW_BROWSER_EXTENSION_PATHS:-}
+      WORKFLOW_REQUIRED_EXTENSION_IDS: ${WORKFLOW_REQUIRED_EXTENSION_IDS:-}
+      WORKFLOW_BROWSER_EXTENSION_SETTINGS_SEED_ROOT: ${WORKFLOW_BROWSER_EXTENSION_SETTINGS_SEED_ROOT:-}
+      WORKFLOW_BROWSER_EXECUTABLE_PATH: ${WORKFLOW_BROWSER_EXECUTABLE_PATH:-}
+      WORKFLOW_BROWSER_PROXY_REQUIRED: ${WORKFLOW_BROWSER_PROXY_REQUIRED:-false}
+      WORKFLOW_BROWSER_PROXY_SERVER: ${WORKFLOW_BROWSER_PROXY_SERVER:-}
+      WORKFLOW_BROWSER_PROXY_BYPASS: ${WORKFLOW_BROWSER_PROXY_BYPASS:-localhost,127.0.0.1,[::1]}
+      WORKFLOW_BROWSER_PROXY_USERNAME: ${WORKFLOW_BROWSER_PROXY_USERNAME:-}
+      WORKFLOW_BROWSER_PROXY_PASSWORD: ${WORKFLOW_BROWSER_PROXY_PASSWORD:-}
+      WORKFLOW_BROWSER_PROXY_EXPIRES_AT: ${WORKFLOW_BROWSER_PROXY_EXPIRES_AT:-}
+      WORKER_BROWSER_PROXY_PROBE_TIMEOUT_MS: ${WORKER_BROWSER_PROXY_PROBE_TIMEOUT_MS:-5000}
+      WORKER_BROWSER_PROXY_RETRY_MS: ${WORKER_BROWSER_PROXY_RETRY_MS:-30000}
+      WORKFLOW_BROWSER_ALWAYS_LOAD_EXTENSIONS: ${WORKFLOW_BROWSER_ALWAYS_LOAD_EXTENSIONS:-false}
+      WORKFLOW_CLEAR_FOREIGN_PROFILE_LOCK: true
+      PDD_LOGIN_MODE: manual
+      OMS_MODE: ${OMS_MODE:-per-shop}
+      WORKFLOW_SECRETS_DIR: /run/workflow-secrets
+      PDD_HEALTHCARE_ACCOUNT_FILE: /run/workflow-secrets/PDD_HEALTHCARE_ACCOUNT
+      PDD_HEALTHCARE_PASSWORD_FILE: /run/workflow-secrets/PDD_HEALTHCARE_PASSWORD
+      PDD_MEDICAL_DEVICE_ACCOUNT_FILE: /run/workflow-secrets/PDD_MEDICAL_DEVICE_ACCOUNT
+      PDD_MEDICAL_DEVICE_PASSWORD_FILE: /run/workflow-secrets/PDD_MEDICAL_DEVICE_PASSWORD
+      PDD_SONGTENG_YAZC_ACCOUNT_FILE: /run/workflow-secrets/PDD_SONGTENG_YAZC_ACCOUNT
+      PDD_SONGTENG_YAZC_PASSWORD_FILE: /run/workflow-secrets/PDD_SONGTENG_YAZC_PASSWORD
+      JEOMS_ACCOUNT_FILE: /run/workflow-secrets/JEOMS_ACCOUNT
+      JEOMS_PASSWORD_FILE: /run/workflow-secrets/JEOMS_PASSWORD
+      TMS_ACCOUNT_FILE: /run/workflow-secrets/TMS_ACCOUNT
+      TMS_PASSWORD_FILE: /run/workflow-secrets/TMS_PASSWORD
+    volumes:
+      - workflow-staging-data:/var/lib/pdd-workflow
+      - ${WORKFLOW_SECRETS_DIR:-../../secrets/staging}:/run/workflow-secrets:ro
+    ports:
+      - "127.0.0.1:${NOVNC_PORT_HOST:-6080}:6080"
+      - "127.0.0.1:${NOVNC_MEDICAL_DEVICE_PORT_HOST:-6081}:6081"
+      - "127.0.0.1:${NOVNC_SONGTENG_PORT_HOST:-6082}:6082"
+      - "127.0.0.1:${NOVNC_SHOP_4_PORT_HOST:-6083}:6083"
+    depends_on:
+      db-migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "apps/worker/src/healthcheck.mjs"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    shm_size: 1gb
+    mem_limit: 6g
+    cpus: 4.0
+    pids_limit: 1536
+    logging: *default-logging
+
+  worker-sync:
+    profiles: ["worker"]
+    image: pdd-workflow-worker:${WORKER_IMAGE_TAG:-staging}
+    restart: unless-stopped
+    command: ["node", "scripts/sync-windows-worker-state.mjs"]
+    environment:
+      WORKFLOW_DATA_ROOT: /var/lib/pdd-workflow
+      WORKER_SYNC_API_URL: http://api:3000
+      WORKER_SYNC_SOURCE_ID: staging-docker-worker
+      WORKER_SYNC_INTERVAL_MS: ${WORKER_SYNC_INTERVAL_MS:-1000}
+      WORKER_INGEST_TOKEN_FILE: /run/workflow-secrets/WORKER_INGEST_TOKEN
+    volumes:
+      - workflow-staging-data:/var/lib/pdd-workflow
+      - ${WORKFLOW_SECRETS_DIR:-../../secrets/staging}:/run/workflow-secrets:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "const fs=require('node:fs');const state=JSON.parse(fs.readFileSync('/var/lib/pdd-workflow/sync/windows-worker-state.json','utf8'));const age=Date.now()-Date.parse(state.lastSuccessAt);if(!Number.isFinite(age)||age>60000)process.exit(1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
+      start_period: 45s
+    mem_limit: 256m
+    cpus: 0.25
+    pids_limit: 100
+    logging: *default-logging
+
+volumes:
+  postgres-staging-data:
+  redis-staging-data:
+  minio-staging-data:
+  workflow-staging-data:
+  x11-staging-socket:

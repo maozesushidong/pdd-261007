@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "shops": [
+    {
+      "shopId": "panapopo-healthcare",
+      "enabled": true,
+      "workOrderTitle": "订单问题：在途无理由退款处理",
+      "scenarioCodes": ["in-transit-refund", "shipped-no-tracking-refund", "abnormal-network-warning", "return-refund", "delivery-risk-concern", "proactive-logistics-service", "reverse-logistics-signed-refund", "intercept-recall", "good-deed-expedited-shipping", "delivered-not-received", "consumer-refusal"],
+      "pddSecretPrefix": "PDD_HEALTHCARE",
+      "expectedShopName": "PANAPOPO医疗保健官方旗舰店林动",
+      "migrateLegacy": true
+    },
+    {
+      "shopId": "panapopo-medical-device",
+      "enabled": true,
+      "workOrderTitle": "订单问题：在途无理由退款处理",
+      "scenarioCodes": ["in-transit-refund", "shipped-no-tracking-refund", "abnormal-network-warning", "return-refund", "delivery-risk-concern", "proactive-logistics-service", "reverse-logistics-signed-refund", "intercept-recall", "good-deed-expedited-shipping", "delivered-not-received", "consumer-refusal"],
+      "pddSecretPrefix": "PDD_MEDICAL_DEVICE",
+      "expectedShopName": "PANAPOPO医疗器械官方旗舰店梦蝶",
+      "migrateLegacy": false
+    },
+    {
+      "shopId": "songteng-yazc-overseas",
+      "enabled": false,
+      "workOrderTitle": "订单问题：在途无理由退款处理",
+      "scenarioCodes": ["in-transit-refund", "shipped-no-tracking-refund", "abnormal-network-warning", "return-refund", "delivery-risk-concern", "proactive-logistics-service", "reverse-logistics-signed-refund", "intercept-recall", "good-deed-expedited-shipping", "delivered-not-received", "consumer-refusal"],
+      "pddSecretPrefix": "PDD_SONGTENG_YAZC",
+      "expectedShopName": "松藤Yazc海外好物馆林动",
+      "migrateLegacy": false
+    }
+  ]
+}

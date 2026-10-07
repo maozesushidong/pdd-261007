@@ -1,0 +1,10 @@
+# Runtime files created after restoring this snapshot.
+/runtime/
+/data/
+/logs-local/
+/.restore-work/
+/RESTORE-REPORT.json
+/app/node_modules/
+/work/
+/scratch/
+/.git/

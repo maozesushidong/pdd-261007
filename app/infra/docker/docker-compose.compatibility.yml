@@ -1,0 +1,144 @@
+x-logging: &compat-logging
+  driver: json-file
+  options:
+    max-size: 5m
+    max-file: "2"
+
+x-runner: &compat-runner
+  image: pdd-workflow-worker:staging
+  restart: "no"
+  init: true
+  command: ["node", "/app/scripts/server-playwright-compatibility.mjs"]
+  environment: &compat-runner-environment
+    COMPAT_DURATION_MS: ${COMPAT_DURATION_MS:-1800000}
+    COMPAT_HEARTBEAT_MS: ${COMPAT_HEARTBEAT_MS:-30000}
+    COMPAT_PROFILE_DIR: /compat/profile
+    COMPAT_ARTIFACT_DIR: /compat/artifacts
+  volumes:
+    - compat-x11:/tmp/.X11-unix
+    - ../../scripts/server-playwright-compatibility.mjs:/app/scripts/server-playwright-compatibility.mjs:ro
+    - ./.compat-artifacts:/compat/artifacts
+  depends_on:
+    display:
+      condition: service_healthy
+  shm_size: 1gb
+  mem_limit: 2g
+  cpus: 1.5
+  pids_limit: 512
+  logging: *compat-logging
+
+services:
+  display:
+    image: pdd-workflow-desktop:playwright-1.61.1
+    restart: "no"
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        rm -f /tmp/.X99-lock /tmp/.X100-lock /tmp/.X101-lock /tmp/.X11-unix/X99 /tmp/.X11-unix/X100 /tmp/.X11-unix/X101;
+        Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp -ac &
+        Xvfb :100 -screen 0 1920x1080x24 -nolisten tcp -ac &
+        Xvfb :101 -screen 0 1920x1080x24 -nolisten tcp -ac &
+        DISPLAY=:99 openbox-session >/tmp/openbox-99.log 2>&1 &
+        DISPLAY=:100 openbox-session >/tmp/openbox-100.log 2>&1 &
+        DISPLAY=:101 openbox-session >/tmp/openbox-101.log 2>&1 &
+        exec tail -f /dev/null
+    volumes:
+      - compat-x11:/tmp/.X11-unix
+    healthcheck:
+      test: ["CMD-SHELL", "xdpyinfo -display :99 >/dev/null 2>&1 && xdpyinfo -display :100 >/dev/null 2>&1 && xdpyinfo -display :101 >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+    mem_limit: 768m
+    cpus: 1.0
+    pids_limit: 256
+    logging: *compat-logging
+
+  vnc:
+    image: pdd-workflow-desktop:playwright-1.61.1
+    restart: "no"
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        x11vnc -display :99 -forever -shared -listen 0.0.0.0 -rfbport 5900 -nopw -noshm -noxdamage -speeds lan -wait 5 -defer 5 &
+        x11vnc -display :100 -forever -shared -listen 0.0.0.0 -rfbport 5901 -nopw -noshm -noxdamage -speeds lan -wait 5 -defer 5 &
+        exec x11vnc -display :101 -forever -shared -listen 0.0.0.0 -rfbport 5902 -nopw -noshm -noxdamage -speeds lan -wait 5 -defer 5
+    volumes:
+      - compat-x11:/tmp/.X11-unix
+    depends_on:
+      display:
+        condition: service_healthy
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    logging: *compat-logging
+
+  novnc-healthcare: &compat-novnc
+    image: pdd-workflow-desktop:playwright-1.61.1
+    restart: "no"
+    command: ["websockify", "--web=/usr/share/novnc", "6080", "vnc:5900"]
+    ports:
+      - "127.0.0.1:6080:6080"
+    depends_on:
+      - vnc
+    mem_limit: 256m
+    cpus: 0.25
+    pids_limit: 128
+    logging: *compat-logging
+
+  novnc-medical-device:
+    <<: *compat-novnc
+    command: ["websockify", "--web=/usr/share/novnc", "6080", "vnc:5901"]
+    ports:
+      - "127.0.0.1:6081:6080"
+
+  novnc-songteng:
+    <<: *compat-novnc
+    command: ["websockify", "--web=/usr/share/novnc", "6080", "vnc:5902"]
+    ports:
+      - "127.0.0.1:6082:6080"
+
+  runner-healthcare:
+    <<: *compat-runner
+    environment:
+      <<: *compat-runner-environment
+      DISPLAY: :99
+      COMPAT_RUNNER_ID: healthcare
+    volumes:
+      - compat-x11:/tmp/.X11-unix
+      - compat-profile-healthcare:/compat/profile
+      - ../../scripts/server-playwright-compatibility.mjs:/app/scripts/server-playwright-compatibility.mjs:ro
+      - ./.compat-artifacts:/compat/artifacts
+
+  runner-medical-device:
+    <<: *compat-runner
+    environment:
+      <<: *compat-runner-environment
+      DISPLAY: :100
+      COMPAT_RUNNER_ID: medical-device
+    volumes:
+      - compat-x11:/tmp/.X11-unix
+      - compat-profile-medical-device:/compat/profile
+      - ../../scripts/server-playwright-compatibility.mjs:/app/scripts/server-playwright-compatibility.mjs:ro
+      - ./.compat-artifacts:/compat/artifacts
+
+  runner-songteng:
+    <<: *compat-runner
+    environment:
+      <<: *compat-runner-environment
+      DISPLAY: :101
+      COMPAT_RUNNER_ID: songteng
+    volumes:
+      - compat-x11:/tmp/.X11-unix
+      - compat-profile-songteng:/compat/profile
+      - ../../scripts/server-playwright-compatibility.mjs:/app/scripts/server-playwright-compatibility.mjs:ro
+      - ./.compat-artifacts:/compat/artifacts
+
+volumes:
+  compat-x11:
+  compat-profile-healthcare:
+  compat-profile-medical-device:
+  compat-profile-songteng:

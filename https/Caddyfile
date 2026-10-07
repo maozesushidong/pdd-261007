@@ -1,0 +1,10 @@
+{
+    admin 127.0.0.1:2020
+    auto_https disable_redirects
+    default_sni 183.214.198.74
+}
+
+http://:80 {
+    respond /.well-known/acme-challenge/pdd-connectivity-20260923 "pdd-local-acme-ready-18321419874" 200
+    respond 404
+}

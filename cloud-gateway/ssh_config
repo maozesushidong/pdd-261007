@@ -1,0 +1,17 @@
+Host pdd-public-gateway
+    HostName 47.96.184.148
+    Port 22
+    User pdd-public-tunnel
+    IdentityFile D:/pdd-native/cloud-gateway/id_ed25519
+    UserKnownHostsFile D:/pdd-native/cloud-gateway/known_hosts
+    StrictHostKeyChecking yes
+    IdentitiesOnly yes
+    BatchMode yes
+    PasswordAuthentication no
+    ForwardAgent no
+    RequestTTY no
+    ExitOnForwardFailure yes
+    ConnectTimeout 15
+    ServerAliveInterval 15
+    ServerAliveCountMax 3
+    RemoteForward 127.0.0.1:15145 127.0.0.1:5145

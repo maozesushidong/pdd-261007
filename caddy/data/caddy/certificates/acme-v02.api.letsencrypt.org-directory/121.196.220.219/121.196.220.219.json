@@ -1,0 +1,19 @@
+{
+	"sans": [
+		"121.196.220.219"
+	],
+	"issuer_data": {
+		"url": "https://acme-v02.api.letsencrypt.org/acme/cert/069c262e0ca64a7b9b4185f0b3f40d3874ac",
+		"ca": "https://acme-v02.api.letsencrypt.org/directory",
+		"account": "https://acme-v02.api.letsencrypt.org/acme/acct/3671971625",
+		"renewal_info": {
+			"suggestedWindow": {
+				"start": "2026-09-25T15:58:13Z",
+				"end": "2026-09-25T19:09:02Z"
+			},
+			"_uniqueIdentifier": "uVnyjs8i8IbTN0j_dhQYuoLYVYc.BpwmLgymSnubQYXws_QNOHSs",
+			"_retryAfter": "2026-09-22T23:03:51.6863687+08:00",
+			"_selectedTime": "2026-09-25T17:34:25Z"
+		}
+	}
+}

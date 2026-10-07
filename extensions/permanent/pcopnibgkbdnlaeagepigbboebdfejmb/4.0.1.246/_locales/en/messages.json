@@ -1,0 +1,11 @@
+{
+    "app_name": {
+        "message": "Indeed Agent"
+    },
+    "options_title": {
+        "message": "Extension Settings"
+    },
+    "options_desc": {
+        "message": "Configure extension options here."
+    }
+}

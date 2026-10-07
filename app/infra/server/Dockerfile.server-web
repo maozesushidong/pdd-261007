@@ -1,0 +1,11 @@
+FROM node:20-alpine
+ARG APP_VERSION=v1.0.0
+ARG GIT_SHA=unknown
+WORKDIR /app
+COPY src /app/apps/web/src
+COPY dist /app/apps/web/dist
+LABEL org.opencontainers.image.title="pdd-workflow-web" \
+      org.opencontainers.image.version="$APP_VERSION" \
+      org.opencontainers.image.revision="$GIT_SHA"
+EXPOSE 4173
+CMD ["node", "apps/web/src/server.mjs"]

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "paths": {
+      "@work-order/domain": ["./packages/domain/src/index.ts"],
+      "@work-order/application": ["./packages/application/src/index.ts"],
+      "@work-order/contracts": ["./packages/contracts/src/index.ts"],
+      "@work-order/config": ["./packages/config/src/index.ts"]
+    },
+    "types": ["node"]
+  }
+}

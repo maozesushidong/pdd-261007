@@ -1,0 +1,72 @@
+{
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "manifest_version": 3,
+  "name": "实在Agent：AI智能体助理，开启智能办公新范式",
+  "version": "4.0.1.246",
+  "version_name": "4.0.1.246+develop-260420.1658",
+  "description": "实在Agent插件，v3版本能力再升级，查询数据、处理文档、填报表单、网页交互等各类网页操作场景轻松应对",
+  "background": {
+    "service_worker": "service_worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "js": [
+        "content.js",
+        "./scripts/commonscript.js",
+        "./scripts/contentscript.js",
+        "./scripts/dataCollectionScript.js",
+        "./scripts/webselect.js"
+      ],
+      "match_about_blank": true,
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "ftp://*/*",
+        "file://*/*"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "options_ui": {
+    "page": "pages/options.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/indeed-16x16.png",
+      "48": "icons/indeed-48x48.png",
+      "128": "icons/indeed-128x128.png"
+    },
+    "default_title": "实在智能 RPA 插件",
+    "default_popup": "pages/popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' ; object-src 'self'; font-src 'self' https://fonts.gstatic.com/ https://res-1.cdn.office.net/;"
+  },
+  "permissions": [
+    "storage",
+    "cookies",
+    "management",
+    "tabs",
+    "debugger",
+    "offscreen",
+    "nativeMessaging",
+    "webNavigation",
+    "downloads",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "16": "icons/indeed-16x16.png",
+    "32": "icons/indeed-32x32.png",
+    "48": "icons/indeed-48x48.png",
+    "128": "icons/indeed-128x128.png"
+  },
+  "default_locale": "zh_CN",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAme2hdLlrTv62nf3CTBPTG8KFAM+yhDN2TJDGknF83rRAn9d6CJUVqxPf2uofVebo0/6/ch3KJS68PyFYs2ot6QnlN20ZQKd3VOwOEPWUyWh0ETwaVBmQUJQVqa4FFDqwHAof6IUcba0P49PKyPEmnHGHs1o5V90t5bB2nnL0FwP+lSQj73di39ynQ8cENP/Ui7gTKnhkAHXWZU2ljz/6ZYs4yGfhng21TLf/d//Xi3JYb8Irv/IkzkT9J15BRgySNfu6vG6bkDl5JR8tJ3dJcKVMY3jTmSWpOcz/fZNyRk6eB2JXe2m1b51Mua3853SISHpoozzSBAgm9mOO8D8AmwIDAQAB"
+}

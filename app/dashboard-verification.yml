@@ -1,0 +1,106 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - img "盘多多" [ref=e6]
+      - generic [ref=e7]:
+        - strong [ref=e8]: 盘多多
+        - generic [ref=e9]: 工单自动化运营台
+    - navigation [ref=e10]:
+      - button "运营总览" [ref=e11] [cursor=pointer]
+      - button "工单中心" [ref=e18] [cursor=pointer]
+      - button "运行日志" [ref=e23] [cursor=pointer]
+      - button "转人工" [ref=e28] [cursor=pointer]
+      - button "验证定位" [active] [ref=e34] [cursor=pointer]
+    - generic [ref=e42]:
+      - generic [ref=e43]: STG
+      - generic [ref=e44]:
+        - strong [ref=e45]: Windows Docker
+        - generic [ref=e46]: PostgreSQL 数据源
+  - generic [ref=e47]:
+    - banner [ref=e48]:
+      - combobox "店铺范围" [ref=e55]:
+        - option "全部店铺" [selected]
+        - option "PANAPOPO医疗保健官方旗舰店林动"
+        - option "PANAPOPO医疗器械官方旗舰店梦蝶"
+        - option "松藤Yazc海外好物馆林动"
+      - generic [ref=e56]:
+        - textbox "开始日期" [ref=e59]: 2026-07-23
+        - generic [ref=e60]: 至
+        - textbox "结束日期" [ref=e61]: 2026-07-29
+      - generic [ref=e62]:
+        - generic [ref=e63]: 实时连接
+        - button "刷新数据" [ref=e71] [cursor=pointer]
+        - link "导出当前工单" [ref=e77] [cursor=pointer]:
+          - /url: /api/v1/exports/work-orders.csv?from=2026-07-23&to=2026-07-29
+        - button "所有者登录" [ref=e81] [cursor=pointer]
+    - main [ref=e85]:
+      - generic [ref=e1724]:
+        - generic [ref=e1726]:
+          - generic [ref=e1727]: VERIFICATION LOCATOR
+          - heading "验证码与滑块定位" [level=1] [ref=e1728]
+          - paragraph [ref=e1729]: 按店铺、系统和坐标定位人工验证区域
+        - generic [ref=e1730]:
+          - article [ref=e1731]:
+            - generic [ref=e1732]:
+              - generic [ref=e1733]:
+                - generic [ref=e1734]: PDD
+                - generic [ref=e1735]:
+                  - strong [ref=e1736]: 松藤 Yazc 海外店
+                  - generic [ref=e1737]: open-shipping-logistics
+              - generic [ref=e1738]: 等待验证
+            - generic [ref=e1740]:
+              - img "松藤 Yazc 海外店 验证码位置" [ref=e1741]
+              - generic: 验证位置
+            - generic [ref=e1742]:
+              - generic [ref=e1743]:
+                - generic [ref=e1749]: 系统
+                - strong [ref=e1750]: PDD
+              - generic [ref=e1751]:
+                - generic [ref=e1755]: 坐标
+                - strong [ref=e1756]: x 1304 · y 715
+              - generic [ref=e1757]:
+                - generic [ref=e1760]: 范围
+                - strong [ref=e1761]: 272 × 198
+              - generic [ref=e1762]:
+                - generic [ref=e1764]: 置信度
+                - strong [ref=e1765]: high
+            - generic [ref=e1766]:
+              - generic [ref=e1767]: 页面
+              - code [ref=e1768]: https://mms.pinduoduo.com/aftersales/work_order/tododetail?id=500012757783460
+              - link "打开页面" [ref=e1769] [cursor=pointer]:
+                - /url: https://mms.pinduoduo.com/aftersales/work_order/tododetail?id=500012757783460
+            - generic [ref=e1774]: 检测于 07/30 03:49:47
+          - article [ref=e1776]:
+            - generic [ref=e1777]:
+              - generic [ref=e1778]:
+                - generic [ref=e1779]: PDD
+                - generic [ref=e1780]:
+                  - strong [ref=e1781]: 松藤 Yazc 海外店
+                  - generic [ref=e1782]: open-shipping-logistics
+              - generic [ref=e1783]: 等待验证
+            - generic [ref=e1785]:
+              - strong [ref=e1791]: 诊断截图待同步
+              - generic [ref=e1792]: "[class*=\"captcha\" i]"
+            - generic [ref=e1793]:
+              - generic [ref=e1794]:
+                - generic [ref=e1800]: 系统
+                - strong [ref=e1801]: PDD
+              - generic [ref=e1802]:
+                - generic [ref=e1806]: 坐标
+                - strong [ref=e1807]: x 1304 · y 715
+              - generic [ref=e1808]:
+                - generic [ref=e1811]: 范围
+                - strong [ref=e1812]: 272 × 198
+              - generic [ref=e1813]:
+                - generic [ref=e1815]: 置信度
+                - strong [ref=e1816]: high
+            - generic [ref=e1817]:
+              - generic [ref=e1818]: 页面
+              - code [ref=e1819]: https://mms.pinduoduo.com/aftersales/work_order/tododetail?id=500012757783460
+              - link "打开页面" [ref=e1820] [cursor=pointer]:
+                - /url: https://mms.pinduoduo.com/aftersales/work_order/tododetail?id=500012757783460
+            - generic [ref=e1825]: 检测于 07/30 02:57:42
+    - contentinfo [ref=e103]:
+      - generic [ref=e104]: 数据源 PostgreSQL
+      - generic [ref=e107]: 三店独立 Worker
+      - generic [ref=e111]: 最近刷新 03:56:23

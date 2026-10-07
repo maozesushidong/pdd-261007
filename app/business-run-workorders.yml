@@ -1,0 +1,866 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e8]:
+        - link "商家后台" [ref=e9] [cursor=pointer]:
+          - /url: /home
+          - generic [ref=e10]:
+            - img [ref=e11]
+            - generic [ref=e13]: 商家后台
+        - generic [ref=e14]:
+          - generic [ref=e16]:
+            - img [ref=e17]
+            - textbox "搜索功能/订单/商品/课程/规则/帮助/服务" [ref=e18]
+          - generic [ref=e22]: 您可输入关键词搜索功能/订单/服务/课程/规则/帮助
+        - generic [ref=e725]:
+          - link "售后风险防控 18" [ref=e727] [cursor=pointer]:
+            - /url: https://mms.pinduoduo.com/orders/warnCenter?warnTabType=2&msfrom=EventCenter
+            - generic [ref=e729]:
+              - text: 售后风险防控
+              - generic [ref=e730]: "18"
+          - link "即将逾期发货 13" [ref=e732] [cursor=pointer]:
+            - /url: https://mms.pinduoduo.com/orders/list?type=12
+            - generic [ref=e734]:
+              - text: 即将逾期发货
+              - generic [ref=e735]: "13"
+          - generic [ref=e738]:
+            - generic [ref=e740] [cursor=pointer]:
+              - generic [ref=e741]:
+                - text: 更多
+                - generic [ref=e742]: 99+
+              - img [ref=e743]
+            - generic:
+              - generic:
+                - text: 可申诉订单
+                - generic: 99+
+              - generic:
+                - text: 物流停滞
+                - generic: "1"
+              - generic:
+                - text: 待商家处理售后
+                - generic: "56"
+              - generic:
+                - text: 待处理工单
+                - generic: "5"
+        - generic [ref=e27] [cursor=pointer]:
+          - img [ref=e28]
+          - generic [ref=e32]: 跨境/社区团购
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - generic [ref=e36]: 跨境电商卖家招募
+              - generic [ref=e37]: TEMU半托管电商卖家招募
+              - button "签约入驻" [ref=e39]
+            - generic [ref=e40]:
+              - generic [ref=e41]: 网格仓/服务站招募
+              - generic [ref=e42]: 有仓储配送资源？报名网格站，盘活线下资源
+              - button "前往报名" [ref=e44]
+        - generic [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+          - generic [ref=e52]: 客户端
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - generic [ref=e55]:
+                - generic [ref=e56]: 手机App
+                - generic [ref=e57]: 随时随地经营，生意一手掌握
+                - img [ref=e59]
+                - generic [ref=e60]:
+                  - generic [ref=e61]: 最新版本：V7.4.3
+                  - generic [ref=e62]: 更新时间：2026年07月22日
+                  - generic [ref=e63]: 手机App已支持鸿蒙系统
+              - generic [ref=e64]:
+                - generic [ref=e65]: Windows客户端
+                - generic [ref=e66]: 高效客服工具，多店同时经营
+                - img [ref=e68]
+                - generic [ref=e69]:
+                  - generic [ref=e70]: 最新版本：V3.6.9
+                  - generic [ref=e71]: 更新时间：2026年07月17日
+              - generic [ref=e72]:
+                - generic [ref=e73]: Mac客户端
+                - generic [ref=e74]: 多店高效经营，消息实时触达
+                - img [ref=e76]
+                - generic [ref=e77]:
+                  - generic [ref=e78]: 最新版本：V1.0.19
+                  - generic [ref=e79]: 更新时间：2026年07月13日
+              - generic [ref=e80]:
+                - generic [ref=e81]: 官方商机助手插件
+                - generic [ref=e82]: 一键识别商品，快速发布同款
+                - img [ref=e84]
+                - generic [ref=e85]: 查看安装教程
+            - link "查看客户端下载详情" [ref=e87]:
+              - /url: /other/downloadapp/
+        - generic [ref=e89] [cursor=pointer]:
+          - img [ref=e91]
+          - generic [ref=e95]: 规则中心
+        - generic [ref=e98] [cursor=pointer]:
+          - generic [ref=e99]:
+            - img [ref=e101]
+            - generic [ref=e102]:
+              - generic [ref=e104]: PANAPOPO医疗保健官方旗舰店
+              - generic [ref=e106]: PANAPOPO医疗保健官方旗舰店林动
+            - img [ref=e108]
+            - img [ref=e110]
+          - generic:
+            - generic [ref=e113]: 账号信息
+            - generic [ref=e116]: 店铺二维码
+            - generic [ref=e118]:
+              - text: 退出当前账号
+              - generic [ref=e119]: 登录其他账号需先退出当前账号
+    - generic [ref=e120]:
+      - navigation [ref=e121]:
+        - generic [ref=e125]:
+          - listitem [ref=e127] [cursor=pointer]:
+            - link "后台首页" [ref=e128]:
+              - /url: /home/
+              - generic [ref=e129]: 后台首页
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - generic [ref=e133]: 常用功能
+              - generic [ref=e134] [cursor=pointer]: 管理
+            - listitem [ref=e135] [cursor=pointer]:
+              - link "订单查询 28" [ref=e745]:
+                - /url: /orders/list
+                - generic [ref=e137]:
+                  - text: 订单查询
+                  - generic [ref=e747]: "28"
+            - listitem [ref=e138] [cursor=pointer]:
+              - link "售后工作台 56" [ref=e748]:
+                - /url: /aftersales/aftersale_list
+                - generic [ref=e140]:
+                  - text: 售后工作台
+                  - generic [ref=e750]: "56"
+          - generic [ref=e142]:
+            - img [ref=e144]
+            - list [ref=e145]:
+              - listitem [ref=e146] [cursor=pointer]:
+                - link "TEMU入驻" [ref=e147]:
+                  - /url: https://agentseller.temu.com/welcome-guide
+          - generic [ref=e148]:
+            - generic [ref=e149] [cursor=pointer]:
+              - img [ref=e150]
+              - generic [ref=e151]: 发货管理
+              - img [ref=e152]
+            - list [ref=e154]:
+              - listitem [ref=e155] [cursor=pointer]:
+                - link "订单查询 28" [ref=e751]:
+                  - /url: /orders/list
+                  - generic [ref=e157]:
+                    - text: 订单查询
+                    - generic [ref=e753]: "28"
+              - listitem [ref=e158] [cursor=pointer]:
+                - link "打单工具 99+" [ref=e754]:
+                  - /url: /print/home
+                  - generic [ref=e160]:
+                    - text: 打单工具
+                    - generic [ref=e756]: 99+
+              - listitem [ref=e161] [cursor=pointer]:
+                - link "官方ERP" [ref=e162]:
+                  - /url: /erp/home
+                  - generic [ref=e163]: 官方ERP
+              - listitem [ref=e164] [cursor=pointer]:
+                - link "包裹中心" [ref=e165]:
+                  - /url: /express/package
+                  - generic [ref=e166]: 包裹中心
+              - listitem [ref=e167] [cursor=pointer]:
+                - link "发货中心" [ref=e168]:
+                  - /url: /express/batch
+                  - generic [ref=e169]: 发货中心
+              - listitem [ref=e170] [cursor=pointer]:
+                - link "订单开票 99+" [ref=e757]:
+                  - /url: /invoice/center
+                  - generic [ref=e172]:
+                    - text: 订单开票
+                    - generic [ref=e759]: 99+
+              - listitem [ref=e173] [cursor=pointer]:
+                - link "电子面单" [ref=e174]:
+                  - /url: /logistics/home
+                  - generic [ref=e175]: 电子面单
+              - listitem [ref=e176] [cursor=pointer]:
+                - link "物流概况" [ref=e177]:
+                  - /url: /orders/order/logisticsSurvey
+                  - generic [ref=e178]: 物流概况
+              - listitem [ref=e179] [cursor=pointer]:
+                - link "报备额度" [ref=e180]:
+                  - /url: /orders/reportManage
+                  - generic [ref=e181]: 报备额度
+              - listitem [ref=e182] [cursor=pointer]:
+                - link "物流异常" [ref=e183]:
+                  - /url: /express/service-quality
+                  - generic [ref=e184]: 物流异常
+              - listitem [ref=e185] [cursor=pointer]:
+                - link "发货权益" [ref=e186]:
+                  - /url: /orders/promised-delivery
+                  - generic [ref=e187]: 发货权益
+              - listitem [ref=e188] [cursor=pointer]:
+                - link "商家寄件" [ref=e189]:
+                  - /url: /express/expressOnlineNew?from=orignal
+                  - generic [ref=e190]: 商家寄件
+              - listitem [ref=e191] [cursor=pointer]:
+                - link "偏远大件" [ref=e192]:
+                  - /url: /express/logistics-work-order/feedback
+                  - generic [ref=e193]: 偏远大件
+          - generic [ref=e194]:
+            - generic [ref=e195] [cursor=pointer]:
+              - img [ref=e196]
+              - generic [ref=e197]: 售后管理
+              - img [ref=e198]
+            - list [ref=e200]:
+              - listitem [ref=e201] [cursor=pointer]:
+                - link "售后工作台 56" [ref=e760]:
+                  - /url: /aftersales/aftersale_list
+                  - generic [ref=e203]:
+                    - text: 售后工作台
+                    - generic [ref=e762]: "56"
+              - listitem [ref=e204] [cursor=pointer]:
+                - link "工单管理 5" [ref=e763]:
+                  - /url: /aftersales/work_order/list
+                  - generic [ref=e206]:
+                    - text: 工单管理
+                    - generic [ref=e765]: "5"
+              - listitem [ref=e207] [cursor=pointer]:
+                - link "商家举证" [ref=e208]:
+                  - /url: /aftersales/merchant_appeal
+                  - generic [ref=e209]: 商家举证
+              - listitem [ref=e210] [cursor=pointer]:
+                - link "消费者体验" [ref=e211]:
+                  - /url: /freight/return_freight?chanel=1033
+                  - generic [ref=e212]: 消费者体验
+              - listitem [ref=e213] [cursor=pointer]:
+                - link "极速退款" [ref=e214]:
+                  - /url: /aftersales/speed_refund
+                  - generic [ref=e215]: 极速退款
+              - listitem [ref=e216] [cursor=pointer]:
+                - link "小额打款" [ref=e217]:
+                  - /url: /aftersales/micro_transfer
+                  - generic [ref=e218]: 小额打款
+              - listitem [ref=e219] [cursor=pointer]:
+                - link "拦截快递" [ref=e220]:
+                  - /url: /orders/interceptExpress
+                  - generic [ref=e221]: 拦截快递
+              - listitem [ref=e222] [cursor=pointer]:
+                - link "挽单工具" [ref=e223]:
+                  - /url: /kit/retain-order?tool_full_channel=10323_97807
+                  - generic [ref=e224]: 挽单工具
+              - listitem [ref=e225] [cursor=pointer]:
+                - link "降退款督导" [ref=e226]:
+                  - /url: /aftersales/supervisor
+                  - generic [ref=e227]: 降退款督导
+          - generic [ref=e228]:
+            - generic [ref=e229] [cursor=pointer]:
+              - img [ref=e230]
+              - generic [ref=e231]: 商品管理
+              - img [ref=e232]
+            - list [ref=e234]:
+              - listitem [ref=e235] [cursor=pointer]:
+                - link "商品列表" [ref=e236]:
+                  - /url: /goods/goods_list
+                  - generic [ref=e237]: 商品列表
+              - listitem [ref=e238] [cursor=pointer]:
+                - link "价格管理" [ref=e239]:
+                  - /url: /kit/goods-price-management?tool_full_channel=10323_97807
+                  - generic [ref=e240]: 价格管理
+              - listitem [ref=e241] [cursor=pointer]:
+                - link "商品体检" [ref=e242]:
+                  - /url: /search/good_inspect_v2/inspect_start
+                  - generic [ref=e243]: 商品体检
+              - listitem [ref=e244] [cursor=pointer]:
+                - link "商品工具" [ref=e245]:
+                  - /url: /goods-tool/home
+                  - generic [ref=e246]: 商品工具
+              - listitem [ref=e247] [cursor=pointer]:
+                - link "机会商品" [ref=e248]:
+                  - /url: /goods/goods_list/chance
+                  - generic [ref=e249]: 机会商品
+              - listitem [ref=e250] [cursor=pointer]:
+                - link "供货管理" [ref=e251]:
+                  - /url: /supplier
+                  - generic [ref=e252]: 供货管理
+              - listitem [ref=e253] [cursor=pointer]:
+                - link "商品领航员" [ref=e254]:
+                  - /url: /sycm/goods_quality/pilot_goods
+                  - generic [ref=e255]: 商品领航员
+              - listitem [ref=e256] [cursor=pointer]:
+                - link "品质诊断" [ref=e257]:
+                  - /url: /pg/mall_quality
+                  - generic [ref=e258]: 品质诊断
+          - generic [ref=e259]:
+            - generic [ref=e260] [cursor=pointer]:
+              - img [ref=e261]
+              - generic [ref=e262]: 流量运营
+              - img [ref=e263]
+            - list [ref=e265]:
+              - listitem [ref=e266] [cursor=pointer]:
+                - link "品牌权益" [ref=e267]:
+                  - /url: /kit/brand-price-change?tool_full_channel=10323_97807
+                  - generic [ref=e268]: 品牌权益
+              - listitem [ref=e269] [cursor=pointer]:
+                - link "限量上大促" [ref=e270]:
+                  - /url: /mms-marketing-mixin/major-limited-quantity-promotion?tool_full_channel=10323_97807
+                  - generic [ref=e271]: 限量上大促
+              - listitem [ref=e272] [cursor=pointer]:
+                - link "全站营销" [ref=e273]:
+                  - /url: /kit/full-site-marketing?tool_full_channel=10323_97807
+                  - generic [ref=e274]: 全站营销
+          - generic [ref=e275]:
+            - generic [ref=e276] [cursor=pointer]:
+              - img [ref=e277]
+              - generic [ref=e278]: 数据中心
+              - img [ref=e279]
+            - list [ref=e281]:
+              - listitem [ref=e282] [cursor=pointer]:
+                - link "商品数据" [ref=e283]:
+                  - /url: /sycm/goods_effect
+                  - generic [ref=e284]: 商品数据
+              - listitem [ref=e285] [cursor=pointer]:
+                - link "交易数据" [ref=e286]:
+                  - /url: /sycm/stores_data
+                  - generic [ref=e287]: 交易数据
+              - listitem [ref=e288] [cursor=pointer]:
+                - link "服务数据" [ref=e289]:
+                  - /url: /sycm/goods_quality/jump
+                  - generic [ref=e290]: 服务数据
+              - listitem [ref=e291] [cursor=pointer]:
+                - link "经营总览" [ref=e292]:
+                  - /url: /sycm/evaluation
+                  - generic [ref=e293]: 经营总览
+              - listitem [ref=e294] [cursor=pointer]:
+                - link "流量数据" [ref=e295]:
+                  - /url: /sycm/search_data
+                  - generic [ref=e296]: 流量数据
+          - generic [ref=e297]:
+            - generic [ref=e298] [cursor=pointer]:
+              - img [ref=e299]
+              - generic [ref=e300]: 店铺营销
+              - img [ref=e301]
+            - list [ref=e303]:
+              - listitem [ref=e304] [cursor=pointer]:
+                - link "营销工具" [ref=e305]:
+                  - /url: /tool
+                  - generic [ref=e306]: 营销工具
+              - listitem [ref=e307] [cursor=pointer]:
+                - link "多多视频" [ref=e308]:
+                  - /url: https://live.pinduoduo.com/creator/index?from=mms
+                  - generic [ref=e309]: 多多视频
+              - listitem [ref=e310] [cursor=pointer]:
+                - link "新客立减" [ref=e311]:
+                  - /url: /kit/new?tool_full_channel=10323_97807
+                  - generic [ref=e312]: 新客立减
+              - listitem [ref=e313] [cursor=pointer]:
+                - link "短信营销" [ref=e314]:
+                  - /url: /tool/sms
+                  - generic [ref=e315]: 短信营销
+              - listitem [ref=e316] [cursor=pointer]:
+                - link "膨胀券" [ref=e317]:
+                  - /url: /kit/inflation-coupon?tool_full_channel=10323_97807
+                  - generic [ref=e318]: 膨胀券
+              - listitem [ref=e319] [cursor=pointer]:
+                - link "店铺会员" [ref=e320]:
+                  - /url: /mallcenter/member
+                  - generic [ref=e321]: 店铺会员
+              - listitem [ref=e322] [cursor=pointer]:
+                - link "平台优惠" [ref=e323]:
+                  - /url: /act/coupon-promotion-landing?sourceType=sidebar
+                  - generic [ref=e324]: 平台优惠
+          - generic [ref=e325]:
+            - generic [ref=e326] [cursor=pointer]:
+              - img [ref=e327]
+              - generic [ref=e328]: 商家权益保护
+              - img [ref=e329]
+            - list [ref=e331]:
+              - listitem [ref=e332] [cursor=pointer]:
+                - link "规则更新" [ref=e333]:
+                  - /url: /other/rule
+                  - generic [ref=e334]: 规则更新
+              - listitem [ref=e335] [cursor=pointer]:
+                - link "低价预警" [ref=e336]:
+                  - /url: /kit/goods-price-management?lowPriceFilter=true
+                  - generic [ref=e337]: 低价预警
+              - listitem [ref=e338] [cursor=pointer]:
+                - link "异常单申诉" [ref=e339]:
+                  - /url: /orders/appeals/badOrder
+                  - generic [ref=e340]: 异常单申诉
+              - listitem [ref=e341] [cursor=pointer]:
+                - link "售后申诉" [ref=e342]:
+                  - /url: /orders/appeals/aftersale/order
+                  - generic [ref=e343]: 售后申诉
+              - listitem [ref=e344] [cursor=pointer]:
+                - link "评价举报" [ref=e345]:
+                  - /url: /goods/evaluation/index?sellerRightProtect=1
+                  - generic [ref=e346]: 评价举报
+              - listitem [ref=e347] [cursor=pointer]:
+                - link "知识产权" [ref=e348]:
+                  - /url: https://ipp.pinduoduo.com
+                  - generic [ref=e349]: 知识产权
+              - listitem [ref=e350] [cursor=pointer]:
+                - link "意见反馈" [ref=e351]:
+                  - /url: /pg/feedback
+                  - generic [ref=e352]: 意见反馈
+          - generic [ref=e353]:
+            - generic [ref=e354] [cursor=pointer]:
+              - img [ref=e355]
+              - generic [ref=e356]: 账户资金
+              - img [ref=e357]
+            - list [ref=e359]:
+              - listitem [ref=e360] [cursor=pointer]:
+                - link "消费者补偿" [ref=e361]:
+                  - /url: /pg/deduciton_detail/record
+                  - generic [ref=e362]: 消费者补偿
+          - generic [ref=e363]:
+            - generic [ref=e364] [cursor=pointer]:
+              - img [ref=e365]
+              - generic [ref=e366]: 店铺管理
+              - img [ref=e367]
+            - list [ref=e369]:
+              - listitem [ref=e370] [cursor=pointer]:
+                - link "店铺页设置" [ref=e371]:
+                  - /url: /goods/goods_categories_home
+                  - generic [ref=e372]: 店铺页设置
+              - listitem [ref=e373] [cursor=pointer]:
+                - link "防控中心" [ref=e374]:
+                  - /url: /orders/warnCenter?warnTabType=2
+                  - generic [ref=e375]: 防控中心
+              - listitem [ref=e376] [cursor=pointer]:
+                - link "安全风险" [ref=e377]:
+                  - /url: /orders/dataRiskWarn
+                  - generic [ref=e378]: 安全风险
+              - listitem [ref=e379] [cursor=pointer]:
+                - link "每日巡店" [ref=e380]:
+                  - /url: /mallcenter/daily-store-check
+                  - generic [ref=e381]: 每日巡店
+              - listitem [ref=e382] [cursor=pointer]:
+                - link "种草动态" [ref=e383]:
+                  - /url: /mall-feed/home
+                  - generic [ref=e384]: 种草动态
+          - generic [ref=e385]:
+            - generic [ref=e386] [cursor=pointer]:
+              - img [ref=e387]
+              - generic [ref=e388]: 多多客服
+              - img [ref=e389]
+            - list [ref=e391]:
+              - listitem [ref=e392] [cursor=pointer]:
+                - link "客服数据" [ref=e393]:
+                  - /url: /mms-chat/overview
+                  - generic [ref=e394]: 客服数据
+              - listitem [ref=e395] [cursor=pointer]:
+                - link "实时管理" [ref=e396]:
+                  - /url: /chat-service/status
+                  - generic [ref=e397]: 实时管理
+              - listitem [ref=e398] [cursor=pointer]:
+                - link "客服工具" [ref=e399]:
+                  - /url: /mms-chat/tools
+                  - generic [ref=e400]: 客服工具
+              - listitem [ref=e401] [cursor=pointer]:
+                - link "聊天记录" [ref=e402]:
+                  - /url: /mms-chat/search
+                  - generic [ref=e403]: 聊天记录
+              - listitem [ref=e404] [cursor=pointer]:
+                - link "消息设置" [ref=e405]:
+                  - /url: /chat-service/setting
+                  - generic [ref=e406]: 消息设置
+              - listitem [ref=e407] [cursor=pointer]:
+                - link "客服机器人" [ref=e408]:
+                  - /url: /chat-service/robot
+                  - generic [ref=e409]: 客服机器人
+              - listitem [ref=e410] [cursor=pointer]:
+                - link "服务助手" [ref=e411]:
+                  - /url: /mms-chat/service/promise
+                  - generic [ref=e412]: 服务助手
+              - listitem [ref=e413] [cursor=pointer]:
+                - link "头像昵称" [ref=e414]:
+                  - /url: /mallcenter/chat-account-list
+                  - generic [ref=e415]: 头像昵称
+          - generic [ref=e416]:
+            - generic [ref=e417] [cursor=pointer]:
+              - img [ref=e418]
+              - generic [ref=e419]: 多多进宝
+              - img [ref=e420]
+            - list [ref=e422]:
+              - listitem [ref=e423] [cursor=pointer]:
+                - link "进宝首页" [ref=e424]:
+                  - /url: /jinbao/effect?click_from=MMS_SIDEBAR
+                  - generic [ref=e425]: 进宝首页
+              - listitem [ref=e426] [cursor=pointer]:
+                - link "推广设置" [ref=e427]:
+                  - /url: /jinbao/promotion/index?click_from=MMS_SIDEBAR
+                  - generic [ref=e428]: 推广设置
+              - listitem [ref=e429] [cursor=pointer]:
+                - link "爆品活动" [ref=e430]:
+                  - /url: /jinbao/popularActivity
+                  - generic [ref=e431]: 爆品活动
+              - listitem [ref=e432] [cursor=pointer]:
+                - link "推广效果" [ref=e433]:
+                  - /url: /jinbao/promotionDetail?click_from=MMS_SIDEBAR
+                  - generic [ref=e434]: 推广效果
+              - listitem [ref=e435] [cursor=pointer]:
+                - link "招商团长" [ref=e436]:
+                  - /url: /jinbao/zsCaptainList
+                  - generic [ref=e437]: 招商团长
+              - listitem [ref=e438] [cursor=pointer]:
+                - link "营销账户" [ref=e439]:
+                  - /url: /jinbao/marketAccount?click_from=MMS_SIDEBAR
+                  - generic [ref=e440]: 营销账户
+          - generic [ref=e441]:
+            - generic [ref=e442] [cursor=pointer]:
+              - img [ref=e443]
+              - generic [ref=e444]: 采购管理
+              - img [ref=e445]
+            - list [ref=e447]:
+              - listitem [ref=e448] [cursor=pointer]:
+                - link "批发采购" [ref=e449]:
+                  - /url: https://pifa.pinduoduo.com/?forceLogin=true&sn=84134
+                  - generic [ref=e450]: 批发采购
+              - listitem [ref=e451] [cursor=pointer]:
+                - link "采购订单" [ref=e452]:
+                  - /url: https://pifa.pinduoduo.com/order/?forceLogin=true&sn=84134
+                  - generic [ref=e453]: 采购订单
+          - generic [ref=e454]:
+            - generic [ref=e455] [cursor=pointer]:
+              - img [ref=e456]
+              - generic [ref=e457]: 品牌管理
+              - img [ref=e458]
+            - list [ref=e460]:
+              - listitem [ref=e461] [cursor=pointer]:
+                - link "拼内购" [ref=e462]:
+                  - /url: /brand/applet/
+                  - generic [ref=e463]: 拼内购
+          - generic [ref=e464]:
+            - generic [ref=e465] [cursor=pointer]:
+              - img [ref=e466]
+              - generic [ref=e467]: 成长中心
+              - img [ref=e468]
+            - list [ref=e470]:
+              - listitem [ref=e471] [cursor=pointer]:
+                - link "规则中心" [ref=e472]:
+                  - /url: /other/rule
+                  - generic [ref=e473]: 规则中心
+              - listitem [ref=e474] [cursor=pointer]:
+                - link "拼多多课堂" [ref=e475]:
+                  - /url: /daxue/home
+                  - generic [ref=e476]: 拼多多课堂
+              - listitem [ref=e477] [cursor=pointer]:
+                - link "营销书院" [ref=e478]:
+                  - /url: https://shuyuan.pinduoduo.com/
+                  - generic [ref=e479]: 营销书院
+              - listitem [ref=e480] [cursor=pointer]:
+                - link "帮助中心" [ref=e481]:
+                  - /url: /other/helpcenter/
+                  - generic [ref=e482]: 帮助中心
+              - listitem [ref=e483] [cursor=pointer]:
+                - link "勋章馆" [ref=e484]:
+                  - /url: /mallcenter/medal
+                  - generic [ref=e485]: 勋章馆
+              - listitem [ref=e486] [cursor=pointer]:
+                - link "能力认证" [ref=e487]:
+                  - /url: /mallcenter/ability/index
+                  - generic [ref=e488]: 能力认证
+          - generic [ref=e489]:
+            - generic [ref=e490] [cursor=pointer]:
+              - img [ref=e491]
+              - generic [ref=e492]: 商家服务市场
+              - img [ref=e493]
+            - list [ref=e495]:
+              - listitem [ref=e496] [cursor=pointer]:
+                - link "我的服务" [ref=e497]:
+                  - /url: https://fuwu.pinduoduo.com/service-market/my-service
+                  - generic [ref=e498]: 我的服务
+              - listitem [ref=e499] [cursor=pointer]:
+                - link "我的授权" [ref=e500]:
+                  - /url: https://fuwu.pinduoduo.com/service-market/my-auth
+                  - generic [ref=e501]: 我的授权
+              - listitem [ref=e502] [cursor=pointer]:
+                - link "服务市场" [ref=e503]:
+                  - /url: https://fuwu.pinduoduo.com/service-market/
+                  - generic [ref=e504]: 服务市场
+              - listitem [ref=e505] [cursor=pointer]:
+                - link "服务评价" [ref=e506]:
+                  - /url: https://fuwu.pinduoduo.com/service-market/evaluation-manage
+                  - generic [ref=e507]: 服务评价
+              - listitem [ref=e508] [cursor=pointer]:
+                - link "服务订单" [ref=e509]:
+                  - /url: https://fuwu.pinduoduo.com/service-market/order-list
+                  - generic [ref=e510]: 服务订单
+      - main [ref=e512]:
+        - generic [ref=e514]: 工单管理
+        - generic [ref=e521]:
+          - generic [ref=e522]:
+            - generic [ref=e523]:
+              - generic [ref=e525]: 工单数据
+              - generic [ref=e767]: 更新时间 2026-07-23 08:00:00
+            - generic [ref=e528]:
+              - img [ref=e529]
+              - generic [ref=e531]: 以下指标代表店铺近期的工单处理质量，请严格按时、按要求处理工单，否则可能导致平台介入补偿消费者，影响店铺纠纷退款率等，纠纷退款率过高将导致店铺二级限制
+            - generic [ref=e532]:
+              - generic [ref=e534]:
+                - generic [ref=e536]: 工单量
+                - generic [ref=e537]: 1492单
+              - generic [ref=e539]:
+                - generic [ref=e541]: 违规处理量
+                - generic [ref=e542]: 0单
+              - generic [ref=e544]:
+                - generic [ref=e546]: 违规处理率
+                - generic [ref=e547]: 0.00%
+              - generic [ref=e549]:
+                - generic [ref=e551]: 完结率
+                - generic [ref=e552]: 99.80%
+                - generic [ref=e769]:
+                  - text: 较前1日
+                  - generic [ref=e770]:
+                    - text: +0.07%
+                    - generic [ref=e771]: 
+              - generic [ref=e773]:
+                - generic [ref=e775]: 有效完结率
+                - generic [ref=e776]: 88.46%
+                - generic [ref=e778]:
+                  - text: 较前1日
+                  - generic [ref=e779]:
+                    - text: "-0.29%"
+                    - generic [ref=e780]: 
+          - generic [ref=e555]: 工单查询
+          - generic [ref=e557]:
+            - generic [ref=e559]:
+              - generic [ref=e560]: 工单筛选
+              - generic [ref=e562]:
+                - generic [ref=e565] [cursor=pointer]:
+                  - generic [ref=e568]: 待处理5
+                  - generic [ref=e570]: 
+                - generic [ref=e576]: 2小时内将逾期
+                - generic [ref=e582]: 处理中
+                - generic [ref=e588]: 违规已处理
+            - generic [ref=e590]:
+              - generic [ref=e592]:
+                - generic [ref=e593]: 订单编号
+                - textbox "请输入订单编号" [ref=e600]
+              - generic [ref=e602]:
+                - generic [ref=e603]: 工单状态
+                - generic [ref=e611] [cursor=pointer]:
+                  - textbox [ref=e613]: 待处理
+                  - img [ref=e617]
+              - generic [ref=e620]:
+                - generic [ref=e621]: 问题类型
+                - generic [ref=e629] [cursor=pointer]:
+                  - textbox [ref=e631]: 全部
+                  - img [ref=e635]
+              - generic [ref=e638]:
+                - generic [ref=e639]: 创建时间
+                - generic [ref=e641]:
+                  - generic [ref=e648] [cursor=pointer]:
+                    - textbox [ref=e650]: 近60天内
+                    - img [ref=e654]
+                  - generic [ref=e659] [cursor=pointer]:
+                    - textbox "开始时间 ~ 结束时间" [ref=e661]:
+                      - /placeholder: 开始时间  ~  结束时间
+                      - text: 2026-05-25 ~ 2026-07-24
+                    - img [ref=e664]
+              - button "查询" [ref=e667] [cursor=pointer]
+          - generic [ref=e668]:
+            - generic [ref=e670]: 查询结果
+            - generic [ref=e672]: 共查询到5个工单
+          - generic [ref=e673]:
+            - generic [ref=e674]:
+              - generic [ref=e675]: 订单信息
+              - generic [ref=e676]: 处理进度
+              - generic [ref=e677]: 处理时间
+              - generic [ref=e678]: 操作
+            - generic [ref=e781]:
+              - generic [ref=e782]:
+                - generic [ref=e784]:
+                  - generic [ref=e785]:
+                    - generic [ref=e786]: 订单号：
+                    - generic [ref=e787] [cursor=pointer]: 260723-181592409660559
+                    - generic [ref=e788] [cursor=pointer]: 复制
+                  - generic [ref=e790]:
+                    - generic [ref=e791]: 创建时间：
+                    - generic [ref=e792]: 2026-07-24 14:29:16
+                - generic [ref=e793]:
+                  - generic [ref=e795]:
+                    - img [ref=e796]
+                    - generic [ref=e797]:
+                      - generic [ref=e798]: 订单问题：在途无理由退款处理
+                      - generic [ref=e801]: PANAPOPO医用护腰带腰肌劳损腰椎疼痛腰间盘突出久坐男女护腰神器
+                  - generic [ref=e805]: 待处理
+                  - generic [ref=e809]: 剩23时51分0秒
+                  - generic [ref=e811] [cursor=pointer]: 立即处理
+              - generic [ref=e812]:
+                - generic [ref=e814]:
+                  - generic [ref=e815]:
+                    - generic [ref=e816]: 订单号：
+                    - generic [ref=e817] [cursor=pointer]: 260723-063543765320107
+                    - generic [ref=e818] [cursor=pointer]: 复制
+                  - generic [ref=e820]:
+                    - generic [ref=e821]: 创建时间：
+                    - generic [ref=e822]: 2026-07-24 14:22:38
+                - generic [ref=e823]:
+                  - generic [ref=e825]:
+                    - img [ref=e826]
+                    - generic [ref=e827]:
+                      - generic [ref=e828]: 订单问题：已发货无轨迹退款处理
+                      - generic [ref=e831]: PANAPOPO医用护腰带钢板支撑腰托腰围男女士中老年人腰椎疼痛神器
+                  - generic [ref=e833]:
+                    - generic [ref=e835]: 待处理
+                    - generic [ref=e838]: 核实商品是否已揽件
+                  - generic [ref=e841]: 剩23时44分22秒
+                  - generic [ref=e843] [cursor=pointer]: 立即处理
+              - generic [ref=e844]:
+                - generic [ref=e846]:
+                  - generic [ref=e847]:
+                    - generic [ref=e848]: 订单号：
+                    - generic [ref=e849] [cursor=pointer]: 260707-372333616770881
+                    - generic [ref=e850] [cursor=pointer]: 复制
+                  - generic [ref=e852]:
+                    - generic [ref=e853]: 创建时间：
+                    - generic [ref=e854]: 2026-07-24 14:15:33
+                - generic [ref=e855]:
+                  - generic [ref=e857]:
+                    - img [ref=e858]
+                    - generic [ref=e859]:
+                      - generic [ref=e860]: 订单问题：商品少发
+                      - generic [ref=e863]: PANAPOPO医用护腰带钢板支撑腰托腰围男女士中老年人腰椎疼痛神器
+                  - generic [ref=e865]:
+                    - generic [ref=e867]: 待处理
+                    - generic [ref=e870]: 确认是否需要联系物流核实
+                  - generic [ref=e873]: 剩23时37分16秒
+                  - generic [ref=e875] [cursor=pointer]: 立即处理
+              - generic [ref=e876]:
+                - generic [ref=e878]:
+                  - generic [ref=e879]:
+                    - generic [ref=e880]: 订单号：
+                    - generic [ref=e881] [cursor=pointer]: 260723-055532602990495
+                    - generic [ref=e882] [cursor=pointer]: 复制
+                  - generic [ref=e884]:
+                    - generic [ref=e885]: 创建时间：
+                    - generic [ref=e886]: 2026-07-24 12:58:27
+                - generic [ref=e887]:
+                  - generic [ref=e889]:
+                    - img [ref=e890]
+                    - generic [ref=e891]:
+                      - generic [ref=e892]: 订单问题：在途无理由退款处理
+                      - generic [ref=e895]: 医用护腰带腰椎间盘劳损腰肌突出腰部支撑腰痛强力支撑专用男女士
+                  - generic [ref=e899]: 待处理
+                  - generic [ref=e903]: 剩22时20分11秒
+                  - generic [ref=e905] [cursor=pointer]: 立即处理
+              - generic [ref=e906]:
+                - generic [ref=e908]:
+                  - generic [ref=e909]:
+                    - generic [ref=e910]: 订单号：
+                    - generic [ref=e911] [cursor=pointer]: 260721-386840675961811
+                    - generic [ref=e912] [cursor=pointer]: 复制
+                  - generic [ref=e914]:
+                    - generic [ref=e915]: 创建时间：
+                    - generic [ref=e916]: 2026-07-23 22:33:25
+                - generic [ref=e917]:
+                  - generic [ref=e919]:
+                    - img [ref=e920]
+                    - generic [ref=e921]:
+                      - generic [ref=e922]: 订单问题：异常网点预警
+                      - generic [ref=e925]: 【日本研发】医用级超软足弓垫减震耐磨成人足弓支撑透气护腿
+                  - generic [ref=e927]:
+                    - generic [ref=e929]: 待处理
+                    - generic [ref=e932]: 异常网点预警
+                  - generic [ref=e935]: 剩31时55分8秒
+                  - generic [ref=e937] [cursor=pointer]: 立即处理
+          - list [ref=e680]:
+            - listitem [ref=e681]: 共有 5 条
+  - generic [ref=e683]:
+    - generic [ref=e686]:
+      - generic [ref=e688] [cursor=pointer]:
+        - generic [ref=e938]: 99+
+        - text: 消息
+      - generic [ref=e940]:
+        - generic [ref=e941]:
+          - generic [ref=e942]: 新消息 (9)
+          - generic [ref=e943] [cursor=pointer]: 
+        - generic [ref=e944]:
+          - generic [ref=e946]:
+            - generic [ref=e947]:
+              - generic [ref=e949]: 地址异常请商家及时处理
+              - generic [ref=e950]: 14:30
+            - paragraph [ref=e952]: 系统检测订单260724-630592694622000的收件人信息可能存在异常，请尽快和消费者确认正确的地址。
+            - button "点击查看订单详情" [ref=e955] [cursor=pointer]:
+              - generic [ref=e956]: 点击查看订单详情
+          - generic [ref=e959]:
+            - generic [ref=e960]:
+              - generic [ref=e962]: 您的商品已从资源位下线，请及时关注！
+              - generic [ref=e963]: 14:26
+            - paragraph [ref=e965]:
+              - text: 资源位类型：首页推荐专区
+              - text: 商品ID：781630765771 商品名称：PANAPOPO医用护腰带腰间盘劳损腰椎突出男女士腰疼腰扭伤神器薄款 下资源位时间：2026-07-24 14:26:54 下线原因：商家取消活动 可至【店铺营销-营销活动-报名记录】查看！
+            - generic [ref=e966]:
+              - generic [ref=e967]:
+                - button "查看所有报名记录" [ref=e968] [cursor=pointer]:
+                  - generic [ref=e969]: 查看所有报名记录
+                - button "标记为已读" [ref=e970] [cursor=pointer]
+              - generic [ref=e973] [cursor=pointer]:
+                - img [ref=e974]
+                - text: 我要反馈
+          - generic [ref=e978]:
+            - generic [ref=e979]:
+              - generic [ref=e981]: 买家催促处理通知
+              - generic [ref=e982]: 14:22
+            - paragraph [ref=e984]:
+              - text: 买家催促您及时处理订单[260723-063543765320107]的售后单（退货退款），当买家第二次催促时，会缩短您的待处理时长~
+              - text: 赶快去设置【
+              - link "售后小助手" [ref=e985] [cursor=pointer]:
+                - /url: /aftersales/aftersale_auto/home
+              - text: 】，自动帮助您处理售后，有效降低平均退款时长，提升店铺评分~减少买家催促~【hold单自动退（买家刚买就退模板）】 最受商家欢迎~
+            - button "去处理" [ref=e988] [cursor=pointer]:
+              - generic [ref=e989]: 去处理
+          - generic [ref=e992]:
+            - generic [ref=e993]:
+              - generic [ref=e995]: 申诉复议通过，打款成功3.0元
+              - generic [ref=e996]: 12:10
+            - paragraph [ref=e998]: 您于2026-07-22 23:25:29提交的商品体验问题-补偿体验申诉已通过，订单号：260617-486644181431561，平台已返还3.0元，请前往「账户资金」确认。我们会持续为您提供公平的经营环境，祝您生意兴隆！
+            - button "查看详情" [ref=e1001] [cursor=pointer]:
+              - generic [ref=e1002]: 查看详情
+          - generic [ref=e1005]:
+            - generic [ref=e1006]:
+              - generic [ref=e1008]: 推广账户自动充值提醒
+              - generic [ref=e1009]: 11:39
+            - paragraph [ref=e1011]: 您的推广账户：PANAPOPO医疗保健官方旗舰店，截止07月24日 11时39分30秒，自动充值成功，充值金额5000元。
+            - button "去推广" [ref=e1014] [cursor=pointer]:
+              - generic [ref=e1015]: 去推广
+          - generic [ref=e1018]:
+            - generic [ref=e1019]:
+              - generic [ref=e1021]: 物流异常提醒：您有已发货未揽收订单即将超时！
+              - generic [ref=e1022]: 11:38
+            - paragraph [ref=e1024]: 截止07月24日09:00，您有多个已发货包裹仍未揽收，请及时通知快递员在规定时限内揽件，否则可能会纳入物流异常率考核，引起消费者投诉并影响店铺流量哦。
+            - button "去看看" [ref=e1027] [cursor=pointer]:
+              - generic [ref=e1028]: 去看看
+          - generic [ref=e1031]:
+            - generic [ref=e1032]:
+              - generic [ref=e1034]: 【违规待申诉】店铺违反客服服务要求通知
+              - generic [ref=e1035]: 10:22
+            - paragraph [ref=e1037]: 亲爱的商家：您好！经核实，店铺近期9笔订单，服务过程中可能存在下列一项或多项违规情况：1、商品问题已为消费者办理退货退款，退货退款解决的是商品钱款问题，而平台体验补偿是额外弥补消费者在购物过程中的体验损失2、结合消费者反馈，商品存在未达预期的问题（如少发、描述不符、质量问题、发错货或磨损等）
+            - button "去阅读" [ref=e1040] [cursor=pointer]:
+              - generic [ref=e1041]: 去阅读
+          - generic [ref=e1044]:
+            - generic [ref=e1045]:
+              - generic [ref=e1047]: 降商品售后平台建议
+              - generic [ref=e1048]: 04:50
+            - paragraph [ref=e1050]: 尊敬的商家：为助力您优化售后服务品质、提升消费者购物体验，平台推出"降商品售后工具"专项赋能计划。该工具通过深度解析您店铺的售后数据与商品信息，提供【可落地的整改建议】，帮助您：1、提前识别潜在售后风险点2、针对性优化商品质量与服务流程3、提升消费者满意度现已为您的店铺生成了相应整改建议，烦请配合在72小时内填写，我们将仔细评估并核实您所填写的内容。感谢您对平台工作的支持，拼多多愿与商家携手共建健康经营生态，协力为消费者提供优质服务。
+            - button "去阅读" [ref=e1053] [cursor=pointer]:
+              - generic [ref=e1054]: 去阅读
+          - generic [ref=e1057]:
+            - generic [ref=e1058]:
+              - generic [ref=e1060]: 商家问题结果反馈通知
+              - generic [ref=e1061]: 07月16日19:07
+            - paragraph [ref=e1063]: 亲爱的商家：关于您之前咨询的店铺动态评分问题，店铺评分包括对商品/服务的质量、服务态度、物流等方面的评分指标。每项店铺评分均为动态指标，系此前连续90天内所有评分的算术平均值（不包括默认评价）。目前系统对于近90天有效评价达50个以上的店铺计算评分，近90天未达到50个有效评价的店铺暂不统计评分；对于评分的统计，系统只统计有效评价，即系统过滤下单、支付和物流存在异常的订单评价后的商品评价。注：每个自然月，相同用户、商家之间存在多次交易的，店铺评分仅计取前3次。 店铺评分一旦做出，无法修改。 感谢您的理解和支持，祝您生活愉快!
+            - button "去阅读" [ref=e1066] [cursor=pointer]:
+              - generic [ref=e1067]: 去阅读
+        - generic [ref=e1068]: 查看全部
+    - generic [ref=e692] [cursor=pointer]:
+      - generic [ref=e693]: 99+
+      - generic [ref=e695]: 站内信
+    - generic [ref=e702] [cursor=pointer]:
+      - generic [ref=e704]:
+        - generic [ref=e705]: 官方
+        - generic [ref=e706]: 客服
+      - generic [ref=e707]: "1"
+    - generic [ref=e710] [cursor=pointer]:
+      - generic [ref=e711]: "7"
+      - generic [ref=e713]:
+        - generic [ref=e714]: 客服
+        - generic [ref=e715]: 平台
+    - generic [ref=e718] [cursor=pointer]:
+      - generic [ref=e719]: "18"
+      - generic [ref=e721]:
+        - generic [ref=e722]: 防控
+        - generic [ref=e723]: 中心

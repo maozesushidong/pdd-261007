@@ -1,0 +1,7 @@
+{
+  "name": "@work-order/contracts",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@work-order/domain": "workspace:*" },
+  "exports": { ".": "./src/index.ts" }
+}

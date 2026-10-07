@@ -1,0 +1,73 @@
+{
+	auto_https disable_redirects
+	default_sni 121.196.220.219
+}
+
+(owner_gateway) {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+		Referrer-Policy "no-referrer"
+	}
+
+	handle_path /public-api/* {
+		reverse_proxy 127.0.0.1:80
+	}
+
+	handle_path /public/* {
+		reverse_proxy 127.0.0.1:80
+	}
+
+	@publicAssets path_regexp publicAssets ^/assets/public-[^/]+$
+	handle @publicAssets {
+		reverse_proxy 127.0.0.1:80
+	}
+
+	@ownerAuth path /api/v1/auth/login /api/v1/auth/logout /api/v1/auth/me
+	handle @ownerAuth {
+		reverse_proxy 127.0.0.1:4173 {
+			header_up -Origin
+		}
+	}
+
+	@ownerProtected path /api/* /remote-desktop /remote-desktop/*
+	handle @ownerProtected {
+		forward_auth 127.0.0.1:3000 {
+			uri /api/v1/auth/authorize
+			header_up -Origin
+		}
+		reverse_proxy 127.0.0.1:4173 {
+			header_up -Origin
+		}
+	}
+
+	handle_path /owner/* {
+		reverse_proxy 127.0.0.1:4173 {
+			header_up -Origin
+		}
+	}
+
+	handle / {
+		redir * /public/ 302
+	}
+
+	handle {
+		reverse_proxy 127.0.0.1:4173 {
+			header_up -Origin
+		}
+	}
+}
+
+https://121.196.220.219 {
+	tls {
+		issuer acme {
+			dir https://acme-v02.api.letsencrypt.org/directory
+			profile shortlived
+		}
+	}
+	import owner_gateway
+}

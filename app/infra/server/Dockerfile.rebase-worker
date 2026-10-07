@@ -1,0 +1,10 @@
+ARG BASE_IMAGE=pdd-workflow-worker:staging
+FROM ${BASE_IMAGE}
+ARG APP_VERSION=v1.0.0
+ARG GIT_SHA=unknown
+WORKDIR /app
+COPY . .
+LABEL org.opencontainers.image.title="pdd-workflow-worker" \
+      org.opencontainers.image.version="$APP_VERSION" \
+      org.opencontainers.image.revision="$GIT_SHA"
+CMD ["node", "apps/worker/src/main.mjs"]

@@ -1,0 +1,6 @@
+{
+  "name": "@work-order/web",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "vite", "build": "vite build", "start": "node src/server.mjs" }
+}

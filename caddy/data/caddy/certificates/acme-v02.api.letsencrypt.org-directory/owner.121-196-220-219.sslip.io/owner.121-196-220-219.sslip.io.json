@@ -1,0 +1,19 @@
+{
+	"sans": [
+		"owner.121-196-220-219.sslip.io"
+	],
+	"issuer_data": {
+		"url": "https://acme-v02.api.letsencrypt.org/acme/cert/0663d2b3c17295f437c01634e09e42fb41e9",
+		"ca": "https://acme-v02.api.letsencrypt.org/directory",
+		"account": "https://acme-v02.api.letsencrypt.org/acme/acct/3671971625",
+		"renewal_info": {
+			"suggestedWindow": {
+				"start": "2026-10-24T22:22:31Z",
+				"end": "2026-10-26T17:33:20Z"
+			},
+			"_uniqueIdentifier": "uVnyjs8i8IbTN0j_dhQYuoLYVYc.BmPSs8FylfQ3wBY04J5C-0Hp",
+			"_retryAfter": "2026-08-27T09:33:43.9031959+08:00",
+			"_selectedTime": "2026-10-25T17:06:06Z"
+		}
+	}
+}

@@ -1,0 +1,8 @@
+{
+  "extensionId": "pcopnibgkbdnlaeagepigbboebdfejmb",
+  "version": "4.0.1.235",
+  "versionName": "4.0.1.235+stable-260707.1514",
+  "packageSha256": "3126bc9d1b7ffad437958c0cfec0160cacb5b968123c45a0cdf65f26f8d15701",
+  "sourcePackage": "C:\\Users\\Administrator\\Downloads\\IIRPAChromeExtension.crx",
+  "manifestAdaptation": "Added the verified CRX public signing key to retain the original ID when loaded unpacked; all executable files are unchanged."
+}

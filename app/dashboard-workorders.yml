@@ -1,0 +1,519 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - img "盘多多" [ref=e6]
+      - generic [ref=e7]:
+        - strong [ref=e8]: 盘多多
+        - generic [ref=e9]: 工单自动化运营台
+    - navigation [ref=e10]:
+      - button "运营总览" [ref=e11] [cursor=pointer]
+      - button "工单中心" [active] [ref=e18] [cursor=pointer]
+      - button "运行日志" [ref=e23] [cursor=pointer]
+      - button "转人工" [ref=e28] [cursor=pointer]
+      - button "验证定位" [ref=e34] [cursor=pointer]
+    - generic [ref=e42]:
+      - generic [ref=e43]: STG
+      - generic [ref=e44]:
+        - strong [ref=e45]: Windows Docker
+        - generic [ref=e46]: PostgreSQL 数据源
+  - generic [ref=e47]:
+    - banner [ref=e48]:
+      - combobox "店铺范围" [ref=e55]:
+        - option "全部店铺" [selected]
+        - option "PANAPOPO医疗保健官方旗舰店林动"
+        - option "PANAPOPO医疗器械官方旗舰店梦蝶"
+        - option "松藤Yazc海外好物馆林动"
+      - generic [ref=e56]:
+        - textbox "开始日期" [ref=e59]: 2026-07-23
+        - generic [ref=e60]: 至
+        - textbox "结束日期" [ref=e61]: 2026-07-29
+      - generic [ref=e62]:
+        - generic [ref=e63]: 实时连接
+        - button "刷新数据" [ref=e71] [cursor=pointer]
+        - link "导出当前工单" [ref=e77] [cursor=pointer]:
+          - /url: /api/v1/exports/work-orders.csv?from=2026-07-23&to=2026-07-29
+        - button "所有者登录" [ref=e81] [cursor=pointer]
+    - main [ref=e85]:
+      - generic [ref=e424]:
+        - generic [ref=e425]:
+          - generic [ref=e426]:
+            - generic [ref=e427]: WORK ORDERS
+            - heading "工单中心" [level=1] [ref=e428]
+            - paragraph [ref=e429]: 完整业务结果、处理分类与证据追溯
+          - link "导出 CSV" [ref=e431] [cursor=pointer]:
+            - /url: /api/v1/exports/work-orders.csv?from=2026-07-23&to=2026-07-29&page=1&pageSize=20
+        - generic [ref=e435]:
+          - textbox "订单号、工单类型或物流单号" [ref=e440]
+          - combobox [ref=e444]:
+            - option "全部场景" [selected]
+            - option "异常网点预警"
+            - option "delivery-risk-concern"
+            - option "intercept-recall"
+            - option "在途无理由退款"
+            - option "已发货无轨迹退款"
+          - combobox [ref=e445]:
+            - option "全部运行状态" [selected]
+            - option "已完成"
+            - option "处理中"
+            - option "等待中"
+            - option "等待验证"
+            - option "人工复核"
+            - option "已中断"
+          - combobox [ref=e446]:
+            - option "全部处理分类" [selected]
+            - option "自动化"
+            - option "转人工"
+        - generic [ref=e447]:
+          - generic [ref=e448]:
+            - generic [ref=e449]:
+              - text: 共
+              - strong [ref=e450]: "24"
+              - text: 张工单
+            - generic [ref=e451]: 第 1 页
+          - table [ref=e453]:
+            - rowgroup [ref=e454]:
+              - row [ref=e455]:
+                - columnheader [ref=e456]:
+                  - checkbox "选择本页" [ref=e457]
+                - columnheader "更新时间" [ref=e458]
+                - columnheader "店铺 / 订单" [ref=e459]
+                - columnheader "业务场景" [ref=e460]
+                - columnheader "物流" [ref=e461]
+                - columnheader "仓库" [ref=e462]
+                - columnheader "运行状态" [ref=e463]
+                - columnheader "处理分类" [ref=e464]
+                - columnheader "当前阶段" [ref=e465]
+                - columnheader [ref=e466]
+            - rowgroup [ref=e467]:
+              - row [ref=e468]:
+                - cell [ref=e469]:
+                  - checkbox "选择 260729-237754140190325" [ref=e470]
+                - cell [ref=e471]:
+                  - time [ref=e472]: 07/30 03:56:10
+                - cell "260729-237754140190325 松藤 Yazc 海外店" [ref=e473]:
+                  - strong [ref=e474]: 260729-237754140190325
+                  - generic [ref=e475]: 松藤 Yazc 海外店
+                - cell "异常网点预警 异常网点预警" [ref=e476]:
+                  - strong [ref=e477]: 异常网点预警
+                  - generic [ref=e478]: 异常网点预警
+                - cell "- 暂无运单" [ref=e479]:
+                  - strong [ref=e480]: "-"
+                  - generic [ref=e481]: 暂无运单
+                - cell "-" [ref=e482]
+                - cell [ref=e483]
+                - cell "自动化" [ref=e486]
+                - cell [ref=e488]:
+                  - code [ref=e489]: 等待人工验证
+                - cell [ref=e490]:
+                  - button "查看详情" [ref=e491] [cursor=pointer]
+              - row [ref=e494]:
+                - cell [ref=e495]:
+                  - checkbox "选择 260726-117545408080632" [ref=e496]
+                - cell [ref=e497]:
+                  - time [ref=e498]: 07/30 03:34:00
+                - cell "260726-117545408080632 PANAPOPO 医疗保健店" [ref=e499]:
+                  - strong [ref=e500]: 260726-117545408080632
+                  - generic [ref=e501]: PANAPOPO 医疗保健店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e502]:
+                  - strong [ref=e503]: 在途无理由退款
+                  - generic [ref=e504]: 订单问题：在途无理由退款处理
+                - cell "圆通快递 YT8890280251604" [ref=e505]:
+                  - strong [ref=e506]: 圆通快递
+                  - generic [ref=e507]: YT8890280251604
+                - cell "筑越仓" [ref=e508]
+                - cell [ref=e509]
+                - cell "自动化" [ref=e512]
+                - cell [ref=e514]:
+                  - code [ref=e515]: 全流程完成
+                - cell [ref=e516]:
+                  - button "查看详情" [ref=e517] [cursor=pointer]
+              - row [ref=e520]:
+                - cell [ref=e521]:
+                  - checkbox "选择 260726-659743097212105" [ref=e522]
+                - cell [ref=e523]:
+                  - time [ref=e524]: 07/30 03:34:00
+                - cell "260726-659743097212105 PANAPOPO 医疗保健店" [ref=e525]:
+                  - strong [ref=e526]: 260726-659743097212105
+                  - generic [ref=e527]: PANAPOPO 医疗保健店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e528]:
+                  - strong [ref=e529]: 在途无理由退款
+                  - generic [ref=e530]: 订单问题：在途无理由退款处理
+                - cell "圆通快递 YT8890283422087" [ref=e531]:
+                  - strong [ref=e532]: 圆通快递
+                  - generic [ref=e533]: YT8890283422087
+                - cell "筑越仓" [ref=e534]
+                - cell [ref=e535]
+                - cell "自动化" [ref=e538]
+                - cell [ref=e540]:
+                  - code [ref=e541]: 全流程完成
+                - cell [ref=e542]:
+                  - button "查看详情" [ref=e543] [cursor=pointer]
+              - row [ref=e546]:
+                - cell [ref=e547]:
+                  - checkbox "选择 260727-529803569453069" [ref=e548]
+                - cell [ref=e549]:
+                  - time [ref=e550]: 07/30 03:34:00
+                - cell "260727-529803569453069 PANAPOPO 医疗保健店" [ref=e551]:
+                  - strong [ref=e552]: 260727-529803569453069
+                  - generic [ref=e553]: PANAPOPO 医疗保健店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e554]:
+                  - strong [ref=e555]: 在途无理由退款
+                  - generic [ref=e556]: 订单问题：在途无理由退款处理
+                - cell "极兔速递 JT5509574427092" [ref=e557]:
+                  - strong [ref=e558]: 极兔速递
+                  - generic [ref=e559]: JT5509574427092
+                - cell "铭如" [ref=e560]
+                - cell [ref=e561]
+                - cell "自动化" [ref=e564]
+                - cell [ref=e566]:
+                  - code [ref=e567]: 全流程完成
+                - cell [ref=e568]:
+                  - button "查看详情" [ref=e569] [cursor=pointer]
+              - row [ref=e572]:
+                - cell [ref=e573]:
+                  - checkbox "选择 260727-639652349591055" [ref=e574]
+                - cell [ref=e575]:
+                  - time [ref=e576]: 07/30 03:34:00
+                - cell "260727-639652349591055 PANAPOPO 医疗保健店" [ref=e577]:
+                  - strong [ref=e578]: 260727-639652349591055
+                  - generic [ref=e579]: PANAPOPO 医疗保健店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e580]:
+                  - strong [ref=e581]: 在途无理由退款
+                  - generic [ref=e582]: 订单问题：在途无理由退款处理
+                - cell "韵达快递 465537182776685" [ref=e583]:
+                  - strong [ref=e584]: 韵达快递
+                  - generic [ref=e585]: "465537182776685"
+                - cell "众邦" [ref=e586]
+                - cell [ref=e587]
+                - cell "自动化" [ref=e590]
+                - cell [ref=e592]:
+                  - code [ref=e593]: 全流程完成
+                - cell [ref=e594]:
+                  - button "查看详情" [ref=e595] [cursor=pointer]
+              - row [ref=e598]:
+                - cell [ref=e599]:
+                  - checkbox "选择 260726-490628790682935" [ref=e600]
+                - cell [ref=e601]:
+                  - time [ref=e602]: 07/30 03:34:00
+                - cell "260726-490628790682935 PANAPOPO 医疗器械店" [ref=e603]:
+                  - strong [ref=e604]: 260726-490628790682935
+                  - generic [ref=e605]: PANAPOPO 医疗器械店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e606]:
+                  - strong [ref=e607]: 在途无理由退款
+                  - generic [ref=e608]: 订单问题：在途无理由退款处理
+                - cell "圆通快递 YT8890280263872" [ref=e609]:
+                  - strong [ref=e610]: 圆通快递
+                  - generic [ref=e611]: YT8890280263872
+                - cell "筑越仓" [ref=e612]
+                - cell [ref=e613]
+                - cell "自动化" [ref=e616]
+                - cell [ref=e618]:
+                  - code [ref=e619]: 全流程完成
+                - cell [ref=e620]:
+                  - button "查看详情" [ref=e621] [cursor=pointer]
+              - row [ref=e624]:
+                - cell [ref=e625]:
+                  - checkbox "选择 260728-445980404011729" [ref=e626]
+                - cell [ref=e627]:
+                  - time [ref=e628]: 07/30 03:34:00
+                - cell "260728-445980404011729 PANAPOPO 医疗器械店" [ref=e629]:
+                  - strong [ref=e630]: 260728-445980404011729
+                  - generic [ref=e631]: PANAPOPO 医疗器械店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e632]:
+                  - strong [ref=e633]: 在途无理由退款
+                  - generic [ref=e634]: 订单问题：在途无理由退款处理
+                - cell "韵达快递 465541175008668" [ref=e635]:
+                  - strong [ref=e636]: 韵达快递
+                  - generic [ref=e637]: "465541175008668"
+                - cell "代发聚水潭-捷佑" [ref=e638]
+                - cell [ref=e639]
+                - cell "自动化" [ref=e642]
+                - cell [ref=e644]:
+                  - code [ref=e645]: 全流程完成
+                - cell [ref=e646]:
+                  - button "查看详情" [ref=e647] [cursor=pointer]
+              - row [ref=e650]:
+                - cell [ref=e651]:
+                  - checkbox "选择 260728-658212154990313" [ref=e652]
+                - cell [ref=e653]:
+                  - time [ref=e654]: 07/30 03:34:00
+                - cell "260728-658212154990313 PANAPOPO 医疗器械店" [ref=e655]:
+                  - strong [ref=e656]: 260728-658212154990313
+                  - generic [ref=e657]: PANAPOPO 医疗器械店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e658]:
+                  - strong [ref=e659]: 在途无理由退款
+                  - generic [ref=e660]: 订单问题：在途无理由退款处理
+                - cell "邮政快递包裹 9818367117819" [ref=e661]:
+                  - strong [ref=e662]: 邮政快递包裹
+                  - generic [ref=e663]: "9818367117819"
+                - cell "筑越仓" [ref=e664]
+                - cell [ref=e665]
+                - cell "自动化" [ref=e668]
+                - cell [ref=e670]:
+                  - code [ref=e671]: 全流程完成
+                - cell [ref=e672]:
+                  - button "查看详情" [ref=e673] [cursor=pointer]
+              - row [ref=e676]:
+                - cell [ref=e677]:
+                  - checkbox "选择 260729-432611070313098" [ref=e678]
+                - cell [ref=e679]:
+                  - time [ref=e680]: 07/30 03:34:00
+                - cell "260729-432611070313098 PANAPOPO 医疗器械店" [ref=e681]:
+                  - strong [ref=e682]: 260729-432611070313098
+                  - generic [ref=e683]: PANAPOPO 医疗器械店
+                - cell "在途无理由退款 在途无理由退款处理" [ref=e684]:
+                  - strong [ref=e685]: 在途无理由退款
+                  - generic [ref=e686]: 在途无理由退款处理
+                - cell "韵达快递 465548397204304" [ref=e687]:
+                  - strong [ref=e688]: 韵达快递
+                  - generic [ref=e689]: "465548397204304"
+                - cell "代发聚水潭-捷佑" [ref=e690]
+                - cell [ref=e691]
+                - cell "自动化" [ref=e694]
+                - cell [ref=e696]:
+                  - code [ref=e697]: 全流程完成
+                - cell [ref=e698]:
+                  - button "查看详情" [ref=e699] [cursor=pointer]
+              - row [ref=e702]:
+                - cell [ref=e703]:
+                  - checkbox "选择 260728-009605015922166" [ref=e704]
+                - cell [ref=e705]:
+                  - time [ref=e706]: 07/30 03:34:00
+                - cell "260728-009605015922166 PANAPOPO 医疗器械店" [ref=e707]:
+                  - strong [ref=e708]: 260728-009605015922166
+                  - generic [ref=e709]: PANAPOPO 医疗器械店
+                - cell "在途无理由退款 在途无理由退款处理" [ref=e710]:
+                  - strong [ref=e711]: 在途无理由退款
+                  - generic [ref=e712]: 在途无理由退款处理
+                - cell "圆通快递 YT8890979602803" [ref=e713]:
+                  - strong [ref=e714]: 圆通快递
+                  - generic [ref=e715]: YT8890979602803
+                - cell "代发聚水潭-简卓" [ref=e716]
+                - cell [ref=e717]
+                - cell "自动化" [ref=e720]
+                - cell [ref=e722]:
+                  - code [ref=e723]: 全流程完成
+                - cell [ref=e724]:
+                  - button "查看详情" [ref=e725] [cursor=pointer]
+              - row [ref=e728]:
+                - cell [ref=e729]:
+                  - checkbox "选择 260729-548289943132003" [ref=e730]
+                - cell [ref=e731]:
+                  - time [ref=e732]: 07/30 03:34:00
+                - cell "260729-548289943132003 松藤 Yazc 海外店" [ref=e733]:
+                  - strong [ref=e734]: 260729-548289943132003
+                  - generic [ref=e735]: 松藤 Yazc 海外店
+                - cell "异常网点预警 订单问题：在途无理由退款处理" [ref=e736]:
+                  - strong [ref=e737]: 异常网点预警
+                  - generic [ref=e738]: 订单问题：在途无理由退款处理
+                - cell "韵达快递 465547466650038" [ref=e739]:
+                  - strong [ref=e740]: 韵达快递
+                  - generic [ref=e741]: "465547466650038"
+                - cell "代发聚水潭-众邦" [ref=e742]
+                - cell [ref=e743]
+                - cell "自动化" [ref=e746]
+                - cell [ref=e748]:
+                  - code [ref=e749]: 全流程完成
+                - cell [ref=e750]:
+                  - button "查看详情" [ref=e751] [cursor=pointer]
+              - row [ref=e754]:
+                - cell [ref=e755]:
+                  - checkbox "选择 260729-588251143701827" [ref=e756]
+                - cell [ref=e757]:
+                  - time [ref=e758]: 07/30 03:34:00
+                - cell "260729-588251143701827 松藤 Yazc 海外店" [ref=e759]:
+                  - strong [ref=e760]: 260729-588251143701827
+                  - generic [ref=e761]: 松藤 Yazc 海外店
+                - cell "在途无理由退款 在途无理由退款处理" [ref=e762]:
+                  - strong [ref=e763]: 在途无理由退款
+                  - generic [ref=e764]: 在途无理由退款处理
+                - cell "中通快递 79126714410926" [ref=e765]:
+                  - strong [ref=e766]: 中通快递
+                  - generic [ref=e767]: "79126714410926"
+                - cell "代发聚水潭-亿哈" [ref=e768]
+                - cell [ref=e769]
+                - cell "自动化" [ref=e772]
+                - cell [ref=e774]:
+                  - code [ref=e775]: 全流程完成
+                - cell [ref=e776]:
+                  - button "查看详情" [ref=e777] [cursor=pointer]
+              - row [ref=e780]:
+                - cell [ref=e781]:
+                  - checkbox "选择 260729-472247191103493" [ref=e782]
+                - cell [ref=e783]:
+                  - time [ref=e784]: 07/30 03:34:00
+                - cell "260729-472247191103493 PANAPOPO 医疗保健店" [ref=e785]:
+                  - strong [ref=e786]: 260729-472247191103493
+                  - generic [ref=e787]: PANAPOPO 医疗保健店
+                - cell "在途无理由退款 在途无理由退款处理" [ref=e788]:
+                  - strong [ref=e789]: 在途无理由退款
+                  - generic [ref=e790]: 在途无理由退款处理
+                - cell "韵达快递 465549196574554" [ref=e791]:
+                  - strong [ref=e792]: 韵达快递
+                  - generic [ref=e793]: "465549196574554"
+                - cell "代发聚水潭-捷佑" [ref=e794]
+                - cell [ref=e795]
+                - cell "转人工" [ref=e798]
+                - cell [ref=e800]:
+                  - code [ref=e801]: 等待人工复核
+                - cell [ref=e802]:
+                  - button "查看详情" [ref=e803] [cursor=pointer]
+              - row [ref=e806]:
+                - cell [ref=e807]:
+                  - checkbox "选择 260724-623923709552188" [ref=e808]
+                - cell [ref=e809]:
+                  - time [ref=e810]: 07/30 03:34:00
+                - cell "260724-623923709552188 PANAPOPO 医疗保健店" [ref=e811]:
+                  - strong [ref=e812]: 260724-623923709552188
+                  - generic [ref=e813]: PANAPOPO 医疗保健店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e814]:
+                  - strong [ref=e815]: 在途无理由退款
+                  - generic [ref=e816]: 订单问题：在途无理由退款处理
+                - cell "中通快递 79125237585768" [ref=e817]:
+                  - strong [ref=e818]: 中通快递
+                  - generic [ref=e819]: "79125237585768"
+                - cell "筑越仓" [ref=e820]
+                - cell [ref=e821]
+                - cell "自动化" [ref=e824]
+                - cell [ref=e826]:
+                  - code [ref=e827]: manual-review-required
+                - cell [ref=e828]:
+                  - button "查看详情" [ref=e829] [cursor=pointer]
+              - row [ref=e832]:
+                - cell [ref=e833]:
+                  - checkbox "选择 260728-094329925141939" [ref=e834]
+                - cell [ref=e835]:
+                  - time [ref=e836]: 07/30 03:34:00
+                - cell "260728-094329925141939 PANAPOPO 医疗器械店" [ref=e837]:
+                  - strong [ref=e838]: 260728-094329925141939
+                  - generic [ref=e839]: PANAPOPO 医疗器械店
+                - cell "在途无理由退款 在途无理由退款处理" [ref=e840]:
+                  - strong [ref=e841]: 在途无理由退款
+                  - generic [ref=e842]: 在途无理由退款处理
+                - cell "圆通快递 YT8890979602498" [ref=e843]:
+                  - strong [ref=e844]: 圆通快递
+                  - generic [ref=e845]: YT8890979602498
+                - cell "代发聚水潭-简卓-共享" [ref=e846]
+                - cell [ref=e847]
+                - cell "自动化" [ref=e850]
+                - cell [ref=e852]:
+                  - code [ref=e853]: 全流程完成
+                - cell [ref=e854]:
+                  - button "查看详情" [ref=e855] [cursor=pointer]
+              - row [ref=e858]:
+                - cell [ref=e859]:
+                  - checkbox "选择 260728-162340544022169" [ref=e860]
+                - cell [ref=e861]:
+                  - time [ref=e862]: 07/30 03:34:00
+                - cell "260728-162340544022169 PANAPOPO 医疗器械店" [ref=e863]:
+                  - strong [ref=e864]: 260728-162340544022169
+                  - generic [ref=e865]: PANAPOPO 医疗器械店
+                - cell "在途无理由退款 在途无理由退款处理" [ref=e866]:
+                  - strong [ref=e867]: 在途无理由退款
+                  - generic [ref=e868]: 在途无理由退款处理
+                - cell "韵达快递 465542554468927" [ref=e869]:
+                  - strong [ref=e870]: 韵达快递
+                  - generic [ref=e871]: "465542554468927"
+                - cell "代发聚水潭-捷佑-共享" [ref=e872]
+                - cell [ref=e873]
+                - cell "自动化" [ref=e876]
+                - cell [ref=e878]:
+                  - code [ref=e879]: 全流程完成
+                - cell [ref=e880]:
+                  - button "查看详情" [ref=e881] [cursor=pointer]
+              - row [ref=e884]:
+                - cell [ref=e885]:
+                  - checkbox "选择 260726-414460157590715" [ref=e886]
+                - cell [ref=e887]:
+                  - time [ref=e888]: 07/30 03:34:00
+                - cell "260726-414460157590715 松藤 Yazc 海外店" [ref=e889]:
+                  - strong [ref=e890]: 260726-414460157590715
+                  - generic [ref=e891]: 松藤 Yazc 海外店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e892]:
+                  - strong [ref=e893]: 在途无理由退款
+                  - generic [ref=e894]: 订单问题：在途无理由退款处理
+                - cell "- 暂无运单" [ref=e895]:
+                  - strong [ref=e896]: "-"
+                  - generic [ref=e897]: 暂无运单
+                - cell "筑越仓" [ref=e898]
+                - cell [ref=e899]
+                - cell "自动化" [ref=e902]
+                - cell [ref=e904]:
+                  - code [ref=e905]: 流程已中断
+                - cell [ref=e906]:
+                  - button "查看详情" [ref=e907] [cursor=pointer]
+              - row [ref=e910]:
+                - cell [ref=e911]:
+                  - checkbox "选择 260727-199837642370100" [ref=e912]
+                - cell [ref=e913]:
+                  - time [ref=e914]: 07/30 03:34:00
+                - cell "260727-199837642370100 松藤 Yazc 海外店" [ref=e915]:
+                  - strong [ref=e916]: 260727-199837642370100
+                  - generic [ref=e917]: 松藤 Yazc 海外店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e918]:
+                  - strong [ref=e919]: 在途无理由退款
+                  - generic [ref=e920]: 订单问题：在途无理由退款处理
+                - cell "圆通快递 YT8890261156715" [ref=e921]:
+                  - strong [ref=e922]: 圆通快递
+                  - generic [ref=e923]: YT8890261156715
+                - cell "筑越仓" [ref=e924]
+                - cell [ref=e925]
+                - cell "自动化" [ref=e928]
+                - cell [ref=e930]:
+                  - code [ref=e931]: 全流程完成
+                - cell [ref=e932]:
+                  - button "查看详情" [ref=e933] [cursor=pointer]
+              - row [ref=e936]:
+                - cell [ref=e937]:
+                  - checkbox "选择 260727-223619367223266" [ref=e938]
+                - cell [ref=e939]:
+                  - time [ref=e940]: 07/30 03:34:00
+                - cell "260727-223619367223266 松藤 Yazc 海外店" [ref=e941]:
+                  - strong [ref=e942]: 260727-223619367223266
+                  - generic [ref=e943]: 松藤 Yazc 海外店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e944]:
+                  - strong [ref=e945]: 在途无理由退款
+                  - generic [ref=e946]: 订单问题：在途无理由退款处理
+                - cell "韵达快递 465541735171786" [ref=e947]:
+                  - strong [ref=e948]: 韵达快递
+                  - generic [ref=e949]: "465541735171786"
+                - cell "捷佑" [ref=e950]
+                - cell [ref=e951]
+                - cell "自动化" [ref=e954]
+                - cell [ref=e956]:
+                  - code [ref=e957]: 全流程完成
+                - cell [ref=e958]:
+                  - button "查看详情" [ref=e959] [cursor=pointer]
+              - row [ref=e962]:
+                - cell [ref=e963]:
+                  - checkbox "选择 260728-403502590312618" [ref=e964]
+                - cell [ref=e965]:
+                  - time [ref=e966]: 07/30 03:34:00
+                - cell "260728-403502590312618 松藤 Yazc 海外店" [ref=e967]:
+                  - strong [ref=e968]: 260728-403502590312618
+                  - generic [ref=e969]: 松藤 Yazc 海外店
+                - cell "在途无理由退款 订单问题：在途无理由退款处理" [ref=e970]:
+                  - strong [ref=e971]: 在途无理由退款
+                  - generic [ref=e972]: 订单问题：在途无理由退款处理
+                - cell "中通快递 79126469490704" [ref=e973]:
+                  - strong [ref=e974]: 中通快递
+                  - generic [ref=e975]: "79126469490704"
+                - cell "筑越仓-拼多多仓-共享" [ref=e976]
+                - cell [ref=e977]
+                - cell "自动化" [ref=e980]
+                - cell [ref=e982]:
+                  - code [ref=e983]: 全流程完成
+                - cell [ref=e984]:
+                  - button "查看详情" [ref=e985] [cursor=pointer]
+          - generic [ref=e988]:
+            - button "上一页" [disabled] [ref=e989]
+            - generic [ref=e992]: 1 / 2
+            - button "下一页" [ref=e993] [cursor=pointer]
+            - combobox [ref=e996]:
+              - option "20 条/页" [selected]
+              - option "50 条/页"
+              - option "100 条/页"
+    - contentinfo [ref=e103]:
+      - generic [ref=e104]: 数据源 PostgreSQL
+      - generic [ref=e107]: 三店独立 Worker
+      - generic [ref=e111]: 最近刷新 03:56:23

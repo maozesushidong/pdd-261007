@@ -1,0 +1,7 @@
+{
+  "name": "@work-order/adapters",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@work-order/domain": "workspace:*" },
+  "exports": { ".": "./src/index.ts", "./verification": "./src/verification-detector/index.ts" }
+}

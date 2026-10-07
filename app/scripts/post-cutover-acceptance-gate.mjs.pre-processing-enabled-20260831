@@ -1,0 +1,495 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { createDataBackend } from '../apps/api/src/data-backend.mjs';
+
+const scriptRoot = path.dirname(fileURLToPath(import.meta.url));
+const appRoot = path.dirname(scriptRoot);
+
+const argument = (args, name, fallback = null) => {
+  const index = args.indexOf(name);
+  return index < 0 ? fallback : String(args[index + 1] || '').trim();
+};
+
+const numberArgument = (args, name, fallback) => {
+  const value = argument(args, name, null);
+  if (value === null) return fallback;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) throw new Error(`${name} requires a non-negative number`);
+  return parsed;
+};
+
+const readNativeEnvironmentValue = (name) => {
+  const envFile = path.join(appRoot, '.env.native');
+  if (!fs.existsSync(envFile)) return null;
+  for (const line of fs.readFileSync(envFile, 'utf8').split(/\r?\n/u)) {
+    if (!line.startsWith(`${name}=`)) continue;
+    return line.slice(name.length + 1).trim().replace(/^(['"])(.*)\1$/u, '$2');
+  }
+  return null;
+};
+
+const count = (value) => Math.max(0, Number(value) || 0);
+const ratio = (numerator, denominator) => denominator > 0 ? numerator / denominator : null;
+const roundedRatio = (value) => value === null ? null : Number(value.toFixed(4));
+
+export const mergeExternalStateAcceptanceMetrics = (viewerMetrics = {}, rows = []) => {
+  const additions = rows.map((row) => ({
+    scenarioCode: String(row.scenarioCode || 'unknown'),
+    total: count(row.total),
+    autoSuccess: count(row.autoSuccess),
+    strictAutoSuccess: count(row.strictAutoSuccess),
+    manualReview: count(row.manualReview),
+  }));
+  const byScenario = new Map((viewerMetrics.byScenario || []).map((row) => [
+    String(row.scenarioCode || 'unknown'),
+    { ...row },
+  ]));
+  for (const addition of additions) {
+    const existing = byScenario.get(addition.scenarioCode) || {
+      scenarioCode: addition.scenarioCode,
+      total: 0,
+      autoSuccess: 0,
+      refundAutoSuccess: 0,
+      refundManualCompleted: 0,
+      strictAutoSuccess: 0,
+      humanConfirmed: 0,
+      manualReview: 0,
+      failed: 0,
+      waiting: 0,
+      paused: 0,
+      notSuccessful: 0,
+    };
+    existing.total = count(existing.total) + addition.total;
+    existing.autoSuccess = count(existing.autoSuccess) + addition.autoSuccess;
+    existing.strictAutoSuccess = count(existing.strictAutoSuccess) + addition.strictAutoSuccess;
+    existing.humanConfirmed = count(existing.humanConfirmed)
+      + Math.max(0, addition.autoSuccess - addition.strictAutoSuccess);
+    existing.manualReview = count(existing.manualReview) + addition.manualReview;
+    existing.paused = count(existing.paused) + addition.manualReview;
+    existing.notSuccessful = count(existing.notSuccessful)
+      + Math.max(0, addition.total - addition.autoSuccess);
+    byScenario.set(addition.scenarioCode, existing);
+  }
+  const externalStateTotal = additions.reduce((sum, row) => sum + row.total, 0);
+  const externalStateConfirmed = additions.reduce((sum, row) => sum + row.autoSuccess, 0);
+  const externalStateStrict = additions.reduce((sum, row) => sum + row.strictAutoSuccess, 0);
+  const externalStateUnresolved = additions.reduce((sum, row) => sum + row.manualReview, 0);
+  return {
+    ...viewerMetrics,
+    total: count(viewerMetrics.total) + externalStateTotal,
+    autoSuccess: count(viewerMetrics.autoSuccess) + externalStateConfirmed,
+    strictAutoSuccess: count(viewerMetrics.strictAutoSuccess) + externalStateStrict,
+    humanConfirmed: count(viewerMetrics.humanConfirmed)
+      + Math.max(0, externalStateConfirmed - externalStateStrict),
+    manualReview: count(viewerMetrics.manualReview) + externalStateUnresolved,
+    paused: count(viewerMetrics.paused) + externalStateUnresolved,
+    notSuccessful: count(viewerMetrics.notSuccessful)
+      + Math.max(0, externalStateTotal - externalStateConfirmed),
+    byScenario: [...byScenario.values()],
+    acceptanceAdjustments: {
+      externalStateTotal,
+      externalStateConfirmed,
+      externalStateUnresolved,
+    },
+  };
+};
+
+export const evaluatePostCutoverAcceptance = ({
+  metrics = {},
+  enabledScenarios = [],
+  shopSamples = [],
+  latency = {},
+  overdueRefundWaits = [],
+  runtimeSettings = {},
+}, {
+  minSamples = 20,
+  minSamplesPerScenario = 1,
+  minSamplesPerShop = 1,
+  minimumAutomationRate = 0.95,
+  maximumManualRate = 0.05,
+  minimumRefundAutomationRate = 0.95,
+} = {}) => {
+  const total = count(metrics.total);
+  const autoSuccess = count(metrics.autoSuccess);
+  const strictAutoSuccess = count(metrics.strictAutoSuccess);
+  const manualReview = count(metrics.manualReview);
+  const refundMetrics = (metrics.byScenario || [])
+    .find((item) => item.scenarioCode === 'return-refund') || {};
+  const refundTotal = count(refundMetrics.total);
+  const refundAutoSuccess = count(refundMetrics.refundAutoSuccess);
+  const byScenario = new Map((metrics.byScenario || [])
+    .map((item) => [item.scenarioCode, count(item.total)]));
+  const byShop = new Map(shopSamples.map((item) => [item.shopId, count(item.sampleCount)]));
+  const enabledShopIds = shopSamples.filter((item) => item.enabled !== false)
+    .map((item) => item.shopId);
+  const missingScenarioSamples = enabledScenarios
+    .filter((scenario) => scenario.enabled !== false)
+    .map((scenario) => scenario.code)
+    .filter((code) => (byScenario.get(code) || 0) < minSamplesPerScenario);
+  const missingShopSamples = enabledShopIds
+    .filter((shopId) => (byShop.get(shopId) || 0) < minSamplesPerShop);
+  const automationRate = ratio(autoSuccess, total);
+  const strictAutomationRate = ratio(strictAutoSuccess, total);
+  const manualRate = ratio(manualReview, total);
+  const refundAutomationRate = ratio(refundAutoSuccess, refundTotal);
+  const insufficientReasons = [];
+  if (total < minSamples) insufficientReasons.push('minimum-total-samples');
+  if (missingScenarioSamples.length) insufficientReasons.push('scenario-sample-coverage');
+  if (missingShopSamples.length) insufficientReasons.push('shop-sample-coverage');
+  if (latency.status === 'insufficient-data' || latency.passed === null) {
+    insufficientReasons.push('ordinary-latency-samples');
+  }
+  const violations = [];
+  if (automationRate !== null && automationRate < minimumAutomationRate) {
+    violations.push('automation-rate-below-target');
+  }
+  if (manualRate !== null && manualRate > maximumManualRate) {
+    violations.push('manual-review-rate-above-target');
+  }
+  if (refundTotal >= minSamplesPerScenario
+    && refundAutomationRate !== null
+    && refundAutomationRate < minimumRefundAutomationRate) {
+    violations.push('return-refund-automation-rate-below-target');
+  }
+  if (latency.passed === false) violations.push('ordinary-latency-gate-failed');
+  if (overdueRefundWaits.length) violations.push('overdue-return-refund-waits');
+  if (runtimeSettings.returnRefundScanEnabled !== true) {
+    violations.push('return-refund-scanning-disabled');
+  }
+  const status = violations.length ? 'failed'
+    : insufficientReasons.length ? 'insufficient-data' : 'passed';
+  return {
+    status,
+    passed: status === 'passed' ? true : status === 'failed' ? false : null,
+    sampleCount: total,
+    thresholds: {
+      minSamples,
+      minSamplesPerScenario,
+      minSamplesPerShop,
+      minimumAutomationRate,
+      maximumManualRate,
+      minimumRefundAutomationRate,
+    },
+    rates: {
+      automation: roundedRatio(automationRate),
+      strictAutomation: roundedRatio(strictAutomationRate),
+      manualReview: roundedRatio(manualRate),
+      returnRefundAutomation: roundedRatio(refundAutomationRate),
+    },
+    counts: {
+      autoSuccess,
+      strictAutoSuccess,
+      manualReview,
+      externalStateTotal: count(metrics.acceptanceAdjustments?.externalStateTotal),
+      externalStateConfirmed: count(metrics.acceptanceAdjustments?.externalStateConfirmed),
+      externalStateUnresolved: count(metrics.acceptanceAdjustments?.externalStateUnresolved),
+      refundTotal,
+      refundAutoSuccess,
+      excludedWaiting: count(metrics.returnRefundWaiting),
+      excludedSkipped: count(metrics.returnRefundSkipped),
+    },
+    coverage: {
+      enabledScenarioCount: enabledScenarios.filter((scenario) => scenario.enabled !== false).length,
+      enabledShopCount: enabledShopIds.length,
+      missingScenarioSamples,
+      missingShopSamples,
+      byScenario: Object.fromEntries(byScenario),
+      byShop: Object.fromEntries(byShop),
+    },
+    insufficientReasons,
+    violations,
+    latency,
+    overdueRefundWaits,
+    runtimeSettings,
+  };
+};
+
+const runSelfTest = () => {
+  const enabledScenarios = [
+    { code: 'in-transit-refund', enabled: true },
+    { code: 'return-refund', enabled: true },
+  ];
+  const shopSamples = [
+    { shopId: 'shop-a', enabled: true, sampleCount: 10 },
+    { shopId: 'shop-b', enabled: true, sampleCount: 10 },
+  ];
+  const baseMetrics = {
+    total: 20,
+    autoSuccess: 19,
+    strictAutoSuccess: 15,
+    manualReview: 1,
+    returnRefundWaiting: 4,
+    returnRefundSkipped: 2,
+    byScenario: [
+      { scenarioCode: 'in-transit-refund', total: 15, autoSuccess: 14 },
+      { scenarioCode: 'return-refund', total: 5, autoSuccess: 5, refundAutoSuccess: 5 },
+    ],
+  };
+  const passing = evaluatePostCutoverAcceptance({
+    metrics: baseMetrics,
+    enabledScenarios,
+    shopSamples,
+    latency: { status: 'passed', passed: true, sampleCount: 10 },
+    overdueRefundWaits: [],
+    runtimeSettings: { returnRefundScanEnabled: true },
+  }, { minSamplesPerScenario: 1 });
+  assert.equal(passing.status, 'passed');
+  assert.equal(passing.rates.automation, 0.95);
+  assert.equal(passing.rates.manualReview, 0.05);
+  assert.equal(passing.counts.excludedSkipped, 2);
+
+  const externalStateAware = evaluatePostCutoverAcceptance({
+    metrics: mergeExternalStateAcceptanceMetrics(baseMetrics, [{
+      scenarioCode: 'proactive-logistics-service',
+      total: 4,
+      autoSuccess: 1,
+      strictAutoSuccess: 1,
+      manualReview: 3,
+    }]),
+    enabledScenarios: [
+      ...enabledScenarios,
+      { code: 'proactive-logistics-service', enabled: true },
+    ],
+    shopSamples,
+    latency: { status: 'passed', passed: true, sampleCount: 10 },
+    overdueRefundWaits: [],
+    runtimeSettings: { returnRefundScanEnabled: true },
+  }, {
+    minSamplesPerScenario: 1,
+    minimumAutomationRate: 0.8,
+    maximumManualRate: 0.2,
+  });
+  assert.equal(externalStateAware.status, 'passed');
+  assert.equal(externalStateAware.sampleCount, 24);
+  assert.equal(externalStateAware.counts.externalStateConfirmed, 1);
+  assert.equal(externalStateAware.counts.externalStateUnresolved, 3);
+  assert.equal(externalStateAware.coverage.byScenario['proactive-logistics-service'], 4);
+
+  const insufficient = evaluatePostCutoverAcceptance({
+    metrics: { ...passing.counts, total: 20, autoSuccess: 20, byScenario: [] },
+    enabledScenarios,
+    shopSamples,
+    latency: { status: 'passed', passed: true },
+    overdueRefundWaits: [],
+    runtimeSettings: { returnRefundScanEnabled: true },
+  });
+  assert.equal(insufficient.status, 'insufficient-data');
+  assert.deepEqual(insufficient.coverage.missingScenarioSamples,
+    ['in-transit-refund', 'return-refund']);
+
+  const failing = evaluatePostCutoverAcceptance({
+    metrics: {
+      total: 20,
+      autoSuccess: 18,
+      strictAutoSuccess: 12,
+      manualReview: 2,
+      byScenario: [
+        { scenarioCode: 'in-transit-refund', total: 15, autoSuccess: 14 },
+        { scenarioCode: 'return-refund', total: 5, autoSuccess: 4, refundAutoSuccess: 4 },
+      ],
+    },
+    enabledScenarios,
+    shopSamples,
+    latency: { status: 'failed', passed: false },
+    overdueRefundWaits: [{ orderNumber: 'order-1' }],
+    runtimeSettings: { returnRefundScanEnabled: false },
+  });
+  assert.equal(failing.status, 'failed');
+  assert.deepEqual(failing.violations, [
+    'automation-rate-below-target',
+    'manual-review-rate-above-target',
+    'return-refund-automation-rate-below-target',
+    'ordinary-latency-gate-failed',
+    'overdue-return-refund-waits',
+    'return-refund-scanning-disabled',
+  ]);
+  console.log('post-cutover acceptance gate self-test passed');
+};
+
+const operationalVisibilitySql = `NOT (
+  coalesce(work_order.payload->'duplicateReconciliation'->>'status', '') = 'superseded'
+  OR coalesce(work_order.frontend_visibility, 'operational') = 'recovery-audit'
+  OR coalesce(work_order.payload->>'frontendVisibility', '') = 'recovery-audit'
+)`;
+
+const run = async () => {
+  const args = process.argv.slice(2);
+  if (args.includes('--self-test')) return runSelfTest();
+  const since = argument(args, '--since');
+  if (!since || !Number.isFinite(Date.parse(since))) {
+    throw new Error('--since requires the post-cutover ISO timestamp');
+  }
+  const settleMinutes = numberArgument(args, '--settle-minutes', 30);
+  const explicitUntil = argument(args, '--until');
+  const until = explicitUntil || new Date(Date.now() - settleMinutes * 60_000).toISOString();
+  if (!Number.isFinite(Date.parse(until)) || Date.parse(until) <= Date.parse(since)) {
+    throw new Error('the frozen cohort --until time must be after --since');
+  }
+  const databaseUrl = process.env.DATABASE_URL || readNativeEnvironmentValue('DATABASE_URL');
+  if (!databaseUrl) throw new Error('DATABASE_URL is unavailable');
+  process.env.DATABASE_URL = databaseUrl;
+  process.env.DATA_BACKEND = 'postgres';
+  const minSamples = numberArgument(args, '--min-samples', 20);
+  const minSamplesPerScenario = numberArgument(args, '--min-samples-per-scenario', 1);
+  const minSamplesPerShop = numberArgument(args, '--min-samples-per-shop', 1);
+  const minimumAutomationRate = numberArgument(args, '--minimum-automation-rate', 0.95);
+  const maximumManualRate = numberArgument(args, '--maximum-manual-rate', 0.05);
+  const minimumRefundAutomationRate = numberArgument(args, '--minimum-refund-automation-rate', 0.95);
+  const refundWaitGraceMinutes = numberArgument(args, '--refund-wait-grace-minutes', 10);
+  const latencyMinSamples = numberArgument(args, '--latency-min-samples', 5);
+  const backend = await createDataBackend({ root: appRoot, dataRoot: path.join(appRoot, '.codex') });
+  const { default: pg } = await import('pg');
+  const pool = new pg.Pool({ connectionString: databaseUrl, max: 1, application_name: 'post-cutover-acceptance-gate' });
+  try {
+    const [viewerMetrics, enabledScenarios, shopResult, overdueRefundResult,
+      runtimeSettingsResult, externalStateResult] = await Promise.all([
+      backend.metricsSummary({ discoveredFrom: since, discoveredTo: until }),
+      backend.listScenarios(),
+      pool.query(`
+        WITH cohort_units AS (
+          SELECT DISTINCT work_order.shop_id,
+            'ordinary:' || work_order.id::text AS unit_key
+          FROM work_orders work_order
+          JOIN ordinary_work_order_instances instance ON instance.work_order_id = work_order.id
+          WHERE work_order.scenario_code IS DISTINCT FROM 'return-refund'
+            AND instance.first_discovered_at >= $1::timestamptz
+            AND instance.first_discovered_at < $2::timestamptz
+            AND ${operationalVisibilitySql}
+          UNION
+          SELECT DISTINCT work_order.shop_id,
+            'refund:' || work_order.shop_id || ':' || work_order.external_order_number AS unit_key
+          FROM work_orders work_order
+          JOIN return_refunds refund ON refund.work_order_id = work_order.id
+          WHERE work_order.scenario_code = 'return-refund'
+            AND refund.first_discovered_at >= $1::timestamptz
+            AND refund.first_discovered_at < $2::timestamptz
+            AND ${operationalVisibilitySql}
+        )
+        SELECT shop.id AS "shopId", shop.enabled,
+          count(cohort.unit_key)::int AS "sampleCount"
+        FROM shops shop
+        LEFT JOIN cohort_units cohort ON cohort.shop_id = shop.id
+        WHERE shop.enabled = true
+        GROUP BY shop.id, shop.enabled
+        ORDER BY shop.id`, [since, until]),
+      pool.query(`
+        SELECT work_order.shop_id AS "shopId",
+          work_order.external_order_number AS "orderNumber",
+          refund.aftersale_number AS "aftersaleNumber",
+          refund.next_check_at AS "nextCheckAt",
+          extract(epoch FROM (now() - refund.next_check_at))::int AS "overdueSeconds"
+        FROM return_refunds refund
+        JOIN work_orders work_order ON work_order.id = refund.work_order_id
+        WHERE refund.first_discovered_at >= $1::timestamptz
+          AND refund.first_discovered_at < $2::timestamptz
+          AND refund.action_state = 'waiting-logistics'
+          AND refund.next_check_at < now() - ($3::double precision * interval '1 minute')
+          AND ${operationalVisibilitySql}
+        ORDER BY refund.next_check_at`, [since, until, refundWaitGraceMinutes]),
+      pool.query(`
+        SELECT value
+        FROM system_settings
+        WHERE key = 'return-refund-scan-enabled'`),
+      pool.query(`
+        WITH external_state_rows AS (
+          SELECT CASE
+              WHEN coalesce(nullif(work_order.scenario_code, ''), 'unknown')
+                = 'in-transit-no-reason-refund' THEN 'in-transit-refund'
+              ELSE coalesce(nullif(work_order.scenario_code, ''), 'unknown')
+            END AS scenario_code,
+            work_order.current_step,
+            work_order.completion_state,
+            work_order.completion_confirmation_method,
+            work_order.handling_classification,
+            work_order.classification_source,
+            work_order.payload
+          FROM work_orders work_order
+          JOIN ordinary_work_order_instances instance
+            ON instance.id = work_order.current_ordinary_instance_id
+            AND instance.work_order_id = work_order.id
+          WHERE instance.first_discovered_at >= $1::timestamptz
+            AND instance.first_discovered_at < $2::timestamptz
+            AND work_order.scenario_code IS DISTINCT FROM 'return-refund'
+            AND work_order.current_step IN ('external-state-confirmed', 'external-state-unresolved')
+            AND ${operationalVisibilitySql}
+        )
+        SELECT scenario_code AS "scenarioCode",
+          count(*)::int AS total,
+          count(*) FILTER (WHERE completion_state = 'confirmed')::int AS "autoSuccess",
+          count(*) FILTER (
+            WHERE completion_state = 'confirmed'
+              AND completion_confirmation_method = ANY(ARRAY[
+                'detail-completed',
+                'absent-from-pending-list',
+                'recovery-delayed-detail-check',
+                'handover-detail-completed',
+                'handover-absent-from-pending-list'
+              ])
+              AND coalesce(handling_classification, 'automated') = 'automated'
+              AND coalesce(classification_source, 'system') = 'system'
+              AND coalesce(
+                (payload->'pddResolutionSubmission'->>'recoveredFromCompletedPage')::boolean,
+                (payload->'lastCompletedOrder'->>'recoveredFromCompletedPage')::boolean,
+                (payload->'completionArchive'->>'recoveredFromCompletedPage')::boolean,
+                false
+              ) = false
+          )::int AS "strictAutoSuccess",
+          count(*) FILTER (
+            WHERE current_step = 'external-state-unresolved'
+              AND coalesce(completion_state, 'pending') <> 'confirmed'
+          )::int AS "manualReview"
+        FROM external_state_rows
+        GROUP BY scenario_code
+        ORDER BY scenario_code`, [since, until]),
+    ]);
+    const metrics = mergeExternalStateAcceptanceMetrics(viewerMetrics, externalStateResult.rows);
+    const latencyProcess = spawnSync(process.execPath, [
+      path.join(scriptRoot, 'ordinary-latency-gate.mjs'),
+      '--since', since,
+      '--until', until,
+      '--min-samples', String(latencyMinSamples),
+    ], {
+      cwd: appRoot,
+      env: { ...process.env, DATABASE_URL: databaseUrl },
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    let latency;
+    try {
+      latency = JSON.parse(String(latencyProcess.stdout || '').trim());
+    } catch {
+      throw new Error(`ordinary latency gate returned invalid output: ${latencyProcess.stderr || latencyProcess.stdout}`);
+    }
+    const report = evaluatePostCutoverAcceptance({
+      metrics,
+      enabledScenarios,
+      shopSamples: shopResult.rows,
+      latency,
+      overdueRefundWaits: overdueRefundResult.rows,
+      runtimeSettings: {
+        returnRefundScanEnabled: runtimeSettingsResult.rows[0]?.value === true,
+      },
+    }, {
+      minSamples,
+      minSamplesPerScenario,
+      minSamplesPerShop,
+      minimumAutomationRate,
+      maximumManualRate,
+      minimumRefundAutomationRate,
+    });
+    console.log(JSON.stringify({
+      checkedAt: new Date().toISOString(),
+      cohort: { since, until, settleMinutes },
+      ...report,
+    }, null, 2));
+    if (report.status === 'insufficient-data') process.exitCode = 2;
+    else if (!report.passed) process.exitCode = 1;
+  } finally {
+    await Promise.all([backend.close(), pool.end()]);
+  }
+};
+
+await run();

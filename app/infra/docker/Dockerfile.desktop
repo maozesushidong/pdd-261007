@@ -1,0 +1,20 @@
+ARG DESKTOP_BASE_IMAGE=mcr.microsoft.com/playwright:v1.61.1-noble
+FROM ${DESKTOP_BASE_IMAGE}
+ARG APP_VERSION=development
+ARG GIT_SHA=unknown
+LABEL org.opencontainers.image.title="pdd-workflow-desktop" \
+      org.opencontainers.image.version="$APP_VERSION" \
+      org.opencontainers.image.revision="$GIT_SHA"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Keep the desktop at its native pixel size. Scaling a 1920x1080 canvas to
+# the browser window interpolates small QR modules and makes them unreadable.
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends xvfb openbox x11vnc novnc websockify x11-utils \
+  && rm -rf /var/lib/apt/lists/* \
+  && mkdir -p /tmp/.X11-unix \
+  && chmod 1777 /tmp/.X11-unix \
+  && sed -i "s/UI.initSetting('resize', 'off')/UI.initSetting('resize', 'off')/; s/UI.initSetting('quality', 6)/UI.initSetting('quality', 9)/; s/UI.initSetting('compression', 2)/UI.initSetting('compression', 0)/" /usr/share/novnc/app/ui.js \
+  && python3 -c "from pathlib import Path; p=Path('/usr/share/novnc/core/rfb.js'); s=p.read_text(); old='''            let data = new Uint8Array(text.length);\n            for (let i = 0; i < text.length; i++) {\n                // FIXME: text can have values outside of Latin1/Uint8\n                data[i] = text.charCodeAt(i);\n            }'''; new='''            const utf8Text = encodeUTF8(text);\n            let data = new Uint8Array(utf8Text.length);\n            for (let i = 0; i < utf8Text.length; i++) {\n                data[i] = utf8Text.charCodeAt(i);\n            }'''; assert old in s; p.write_text(s.replace(old,new,1))" \
+  && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html
